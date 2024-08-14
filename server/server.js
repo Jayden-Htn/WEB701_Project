@@ -1,14 +1,18 @@
 import express from "express";
 import cors from "cors";
-import routes from "./routes/index.js";
+import userRoutes from './routes/userRoutes.js';
+import itemRoutes from './routes/itemRoutes.js';
 
 // Set up server
-const PORT = process.env.PORT || 5050;
 const app = express();
-
-app.use(cors());
 app.use(express.json());
-app.use("/routes", routes);
+app.use(cors());
+dotenv.config()
+const PORT = process.env.PORT || 5050;
+
+// Use routes
+app.use('/users', userRoutes);
+app.use('/items', itemRoutes);
 
 // Start the Express server
 app.listen(PORT, () => {
