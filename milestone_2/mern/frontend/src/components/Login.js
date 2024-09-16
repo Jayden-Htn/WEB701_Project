@@ -7,21 +7,21 @@ const required = (value) => !value ? "This field is required!" : "";
 const Login = () => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({
-    username: "",
+    email: "",
     password: ""
   });
 
   const validate = () => {
-    const newErrors = { username: "", password: "" };
+    const newErrors = { email: "", password: "" };
     let isValid = true;
 
-    newErrors.username = required(username);
-    if (newErrors.username) isValid = false;
+    newErrors.email = required(email);
+    if (newErrors.email) isValid = false;
 
     newErrors.password = required(password);
     if (newErrors.password) isValid = false;
@@ -37,7 +37,7 @@ const Login = () => {
     setLoading(true);
 
     if (validate()) {
-      AuthService.login(username, password).then(
+      AuthService.login(email, password).then(
         () => {
           navigate("/profile");
           window.location.reload();
@@ -68,15 +68,15 @@ const Login = () => {
 
         <form onSubmit={handleLogin}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
               className="form-control"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.username && <div className="alert alert-danger" role="alert">{errors.username}</div>}
+            {errors.email && <div className="alert alert-danger" role="alert">{errors.email}</div>}
           </div>
 
           <div className="form-group">

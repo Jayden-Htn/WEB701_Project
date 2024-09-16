@@ -6,11 +6,15 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.register = (req, res) => {
   const user = new User({
-    username: req.body.username,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: bcrypt.hashSync(req.body.password, 8),
+    organisation: req.body.organisation,
+    tokens: 100,
+    tokenExpiry: Date("2024-12-31"),
   });
 
   user.save().then((user) => {
@@ -26,7 +30,7 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: err });
             return;
           }
-          user.roles = roles.map(role => role._id);
+          user.role = roles.map(role => role._id);
           user.save().then(() => {
             res.send({ message: "User was registered successfully!" });
           }).catch(err => {
@@ -39,8 +43,8 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }).then((role) => {
-        user.roles = [role._id];
+      Role.findOne({ name: "beneficiary" }).then((role) => {
+        user.role = role._id;
         user.save().then(() => {
           res.send({ message: "User was registered successfully!" });
         }).catch(err => {
@@ -67,11 +71,11 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.signin = (req, res) => {
+exports.login = (req, res) => {
   User.findOne({
-    username: req.body.username
+    email: req.body.email
   })
-    .populate("roles", "-__v")
+    .populate("role", "-__v")
     .then((user) => {
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
@@ -98,15 +102,17 @@ exports.signin = (req, res) => {
                               });
 
       var authorities = [];
+      authorities.push("role_" + user.role.name.toLowerCase());
 
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
       res.status(200).send({
         id: user._id,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
-        roles: authorities,
+        organisation: user.organisation,
+        tokens: user.tokens,
+        tokenExpiry: user.tokenExpiry,
+        role: authorities[0],
         accessToken: token
       });
     }).catch((err) => {

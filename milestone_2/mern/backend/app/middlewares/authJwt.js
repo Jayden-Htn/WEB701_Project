@@ -26,9 +26,9 @@ verifyToken = (req, res, next) => {
 
 isAdmin = (req, res, next) => {
   User.findById(req.userId).then((user) => {
-    Role.find({_id: { $in: user.roles }}).then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
+    Role.find({_id: { $in: user.role }}).then((role) => {
+        for (let i = 0; i < role.length; i++) {
+          if (role[i].name === "admin") {
             next();
             return;
           }
@@ -47,17 +47,17 @@ isAdmin = (req, res, next) => {
   });
 };
 
-isModerator = (req, res, next) => {
+isStaff = (req, res, next) => {
   User.findById(req.userId).then((user) => {
-    Role.find({_id: { $in: user.roles }}).then((roles) => {
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "moderator") {
+    Role.find({_id: { $in: user.role }}).then((role) => {
+        for (let i = 0; i < role.length; i++) {
+          if (role[i].name === "staff") {
             next();
             return;
           }
         }
 
-        res.status(403).send({ message: "Require Moderator Role!" });
+        res.status(403).send({ message: "Require Staff Role!" });
         return;
       }
     ).catch((err) => {
@@ -73,6 +73,6 @@ isModerator = (req, res, next) => {
 const authJwt = {
   verifyToken,
   isAdmin,
-  isModerator
+  isStaff
 };
 module.exports = authJwt;

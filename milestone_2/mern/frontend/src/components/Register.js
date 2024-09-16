@@ -3,27 +3,39 @@ import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [organisation, setOrganisation] = useState("");
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
 
   const [errors, setErrors] = useState({
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    password: ""
+    password: "",
+    organisation: ""
   });
 
   const validate = () => {
-    const newErrors = { username: "", email: "", password: "" };
+    const newErrors = { firstName: "", lastName: "", email: "", password: "", organisation: ""};
     let isValid = true;
 
-    if (!username) {
-      newErrors.username = "This field is required!";
+    if (!firstName) {
+      newErrors.firstName = "This field is required!";
       isValid = false;
-    } else if (username.length < 3 || username.length > 20) {
-      newErrors.username = "The username must be between 3 and 20 characters.";
+    } else if (firstName.length < 3 || firstName.length > 20) {
+      newErrors.firstName = "The first name must be between 3 and 20 characters.";
+      isValid = false;
+    }
+
+    if (!lastName) {
+      newErrors.lastName = "This field is required!";
+      isValid = false;
+    } else if (lastName.length < 3 || lastName.length > 20) {
+      newErrors.lastName = "The last name must be between 3 and 20 characters.";
       isValid = false;
     }
 
@@ -43,6 +55,11 @@ const Register = () => {
       isValid = false;
     }
 
+    if (organisation.length < 0 || organisation.length > 40) {
+      newErrors.organisation = "The organisation must be less than 40 characters.";
+      isValid = false;
+    }
+
     setErrors(newErrors);
     return isValid;
   };
@@ -54,7 +71,7 @@ const Register = () => {
     setSuccessful(false);
 
     if (validate()) {
-      AuthService.register(username, email, password).then(
+      AuthService.register(firstName, lastName, email, password, organisation).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -85,15 +102,27 @@ const Register = () => {
           {!successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  name="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
-                {errors.username && <div className="alert alert-danger" role="alert">{errors.username}</div>}
+                {errors.firstName && <div className="alert alert-danger" role="alert">{errors.firstName}</div>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                {errors.lastName && <div className="alert alert-danger" role="alert">{errors.lastName}</div>}
               </div>
 
               <div className="form-group">
@@ -118,6 +147,18 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 {errors.password && <div className="alert alert-danger" role="alert">{errors.password}</div>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="organisation">Organisation (optional)</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="organisation"
+                  value={organisation}
+                  onChange={(e) => setOrganisation(e.target.value)}
+                />
+                {errors.organisation && <div className="alert alert-danger" role="alert">{errors.organisation}</div>}
               </div>
 
               <div className="form-group">

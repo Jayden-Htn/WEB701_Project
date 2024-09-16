@@ -10,11 +10,11 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
-import BoardModerator from "./components/BoardModerator";
+import BoardStaff from "./components/BoardStaff";
 import BoardAdmin from "./components/BoardAdmin";
 
 const App = () => {
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
+  const [showStaffBoard, setShowStaffBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
@@ -23,8 +23,8 @@ const App = () => {
 
     if (user) {
       setCurrentUser(user);
-      setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      setShowStaffBoard(user.role.includes("role_staff"));
+      setShowAdminBoard(user.role.includes("role_admin"));
     }
   }, []);
 
@@ -34,9 +34,9 @@ const App = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav className="navbar navbar-expand navbar-dark">
         <Link to={"/"} className="navbar-brand">
-          bezKoder
+          Re:Tech
         </Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
@@ -45,10 +45,10 @@ const App = () => {
             </Link>
           </li>
 
-          {showModeratorBoard && (
+          {showStaffBoard && (
             <li className="nav-item">
-              <Link to={"/mod"} className="nav-link">
-                Moderator Board
+              <Link to={"/staff"} className="nav-link">
+                Staff
               </Link>
             </li>
           )}
@@ -56,7 +56,7 @@ const App = () => {
           {showAdminBoard && (
             <li className="nav-item">
               <Link to={"/admin"} className="nav-link">
-                Admin Board
+                Admin
               </Link>
             </li>
           )}
@@ -74,12 +74,12 @@ const App = () => {
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
               <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
+                Account
               </Link>
             </li>
             <li className="nav-item">
               <a href="/login" className="nav-link" onClick={logOut}>
-                LogOut
+                Logout
               </a>
             </li>
           </div>
@@ -108,7 +108,7 @@ const App = () => {
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/user" element={<BoardUser/>} />
-          <Route path="/mod" element={<BoardModerator/>} />
+          <Route path="/mod" element={<BoardStaff/>} />
           <Route path="/admin" element={<BoardAdmin/>} />
         </Routes>
       </div>

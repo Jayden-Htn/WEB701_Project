@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import ModeratorService from "../services/user.service";
+import StaffService from "../services/user.service";
 
-const BoardModerator = () => {
+const BoardStaff = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    ModeratorService.getModeratorBoard().then(
+    StaffService.getStaffBoard().then(
       (response) => {
         setContent(response.data);
       },
@@ -32,4 +32,4 @@ const BoardModerator = () => {
   );
 };
 
-export default BoardModerator;
+export default BoardStaff;

@@ -3,6 +3,12 @@ label {
   margin-top: 10px;
 }
 
+.navbar {
+  padding: 10px 20px;
+  background-color: #18114c;
+  color: #18114c;
+}
+
 .card-container.card {
   max-width: 350px !important;
   padding: 40px 40px;
