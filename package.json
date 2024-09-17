@@ -1,0 +1,22 @@
+{
+  "name": "web701_project",
+  "version": "1.0.0",
+  "description": "Project repository for WEB701.",
+  "main": "index.js",
+  "scripts": {
+    "m1-server": "node ./milestone_1/server.js",
+    "m2-mern-f": "cd ./milestone_2/mern/frontend && npm start",
+    "m2-mern-b": "cd ./milestone_2/mern/backend && nodemon server",
+    "m2-mean-f": "cd ./milestone_2/mean/frontend && ng serve",
+    "m2-mean-b": "cd ./milestone_2/mean/backend && nodemon server",
+    "m1-install": "cd ./milestone_1 && npm install",
+    "m2-install-mern-f": "cd ./milestone_2/mern/frontend && npm install",
+    "m2-install-mern-b": "cd ./milestone_2/mern/backend && npm install",
+    "m2-install-mean-f": "cd ./milestone_2/mean/frontend && npm install",
+    "m2-install-mean-b": "cd ./milestone_2/mean/backend && npm install",
+    "post-install": "npm run m1-install && npm run m2-install-mern-f && npm run m2-install-mern-b && npm run m2-install-mean-f && npm run m2-install-mean-b"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
