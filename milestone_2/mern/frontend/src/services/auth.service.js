@@ -29,7 +29,11 @@ const login = (email, password) => {
 
 const logout = () => {
   localStorage.removeItem("user");
+  return axios.post(API_URL + "logout").then((response) => {
+    return response.data;
+  });
 };
+
 
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
@@ -48,9 +52,6 @@ const updateCurrentUser = (data) => {
     return null;
   }
 };
-
-
-
 
 
 const AuthService = {

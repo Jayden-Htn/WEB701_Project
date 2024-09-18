@@ -31,6 +31,10 @@ const App = () => {
   }, []);
 
   const logOut = () => {
+    setShowStaffBoard(false);
+    setShowAdminBoard(false);
+    setShowUserBoard(false);
+    setCurrentUser(undefined);
     AuthService.logout();
   };
 
