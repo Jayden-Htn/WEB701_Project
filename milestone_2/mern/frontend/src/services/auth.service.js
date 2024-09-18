@@ -35,11 +35,30 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+const updateCurrentUser = (data) => {
+  let currentUser = getCurrentUser();
+  if (currentUser) {
+    // Update the balance
+    currentUser.tokens = data.tokens;  
+    currentUser.purchases = data.purchases;  
+    localStorage.setItem("user", JSON.stringify(currentUser));
+    return currentUser;
+  } else {
+    console.log("Error: User not found in localStorage");
+    return null;
+  }
+};
+
+
+
+
+
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  updateCurrentUser,
 };
 
 export default AuthService;

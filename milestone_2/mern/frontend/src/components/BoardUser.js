@@ -29,24 +29,14 @@ const BoardUser = () => {
 
   const purchase = (id) => {
     setLoading(true);
-    ShopService.purchaseItem(id).then((response) => {
-      let currentUser = AuthService.getCurrentUser();
-      if (currentUser) {
-        currentUser.tokens = response.data.tokens;  // Update the balance
-        currentUser.purchases = response.data.purchases;  
-        localStorage.setItem("user", JSON.stringify(currentUser));
-      } else {
-        console.log("Error: User not found in localStorage");
-      }
+    ShopService.purchaseItem(id).then(() => {
+      setLoading(false);
       navigate("/profile");
       window.location.reload();
-      },
-      (err) => {
-        console.log("Purchase error:", err)
-        setLoading(false);
-      }
-    );
-    setLoading(false);
+    }).catch((err) => {
+      console.log("Purchase error:", err)
+      setLoading(false);
+    });
   };
 
   return (
