@@ -7,7 +7,7 @@ const Item = mongoose.model(
     description: String,
     price: Number,
     quantityAvailable: Number,
-    category: String
+    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" }
   })
 );
 

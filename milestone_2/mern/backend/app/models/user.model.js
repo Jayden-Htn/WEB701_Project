@@ -13,7 +13,11 @@ const User = mongoose.model(
     role: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Role"
-    }
+    },
+    purchases: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Item"
+    }]
   })
 );
 

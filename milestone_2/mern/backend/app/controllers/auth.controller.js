@@ -74,52 +74,56 @@ exports.register = (req, res) => {
 exports.login = (req, res) => {
   User.findOne({
     email: req.body.email
-  })
-    .populate("role", "-__v")
-    .then((user) => {
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
-      }
+  }).populate('role', '-__v').populate('purchases', '-__v').then((user) => {
+    if (!user) {
+      return res.status(404).send({ message: "User Not found." });
+    }
 
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
+    var passwordIsValid = bcrypt.compareSync(
+      req.body.password,
+      user.password
+    );
 
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!"
-        });
-      }
-
-      const token = jwt.sign({ id: user.id },
-                              config.secret,
-                              {
-                                algorithm: 'HS256',
-                                allowInsecureKeySizes: true,
-                                expiresIn: 86400, // 24 hours
-                              });
-
-      var authorities = [];
-      authorities.push("role_" + user.role.name.toLowerCase());
-
-      res.status(200).send({
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        organisation: user.organisation,
-        tokens: user.tokens,
-        tokenExpiry: user.tokenExpiry,
-        role: authorities[0],
-        accessToken: token
+    if (!passwordIsValid) {
+      return res.status(401).send({
+        accessToken: null,
+        message: "Invalid Password!"
       });
-    }).catch((err) => {
-      if (err) {
-        console.log("Error 6:", err);
-        res.status(500).send({ message: err });
-        return;
-      }
+    }
+
+    const token = jwt.sign({ id: user.id },
+                            config.secret,
+                            {
+                              algorithm: 'HS256',
+                              allowInsecureKeySizes: true,
+                              expiresIn: 86400, // 24 hours
+                            });
+
+    var authorities = [];
+    authorities.push("role_" + user.role.name.toLowerCase());
+
+    var purchaseList = [];
+    user.purchases.forEach(purchase => {
+      purchaseList.push("" + purchase.name.toLowerCase());
     });
+    
+    res.status(200).send({
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      organisation: user.organisation,
+      tokens: user.tokens,
+      tokenExpiry: user.tokenExpiry,
+      role: authorities[0],
+      accessToken: token,
+      purchases: purchaseList
+    });
+  }).catch((err) => {
+    if (err) {
+      console.log("Error 6:", err);
+      res.status(500).send({ message: err });
+      return;
+    }
+  });
 };
