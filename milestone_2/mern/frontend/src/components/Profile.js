@@ -3,14 +3,11 @@ import AuthService from "../services/auth.service";
 
 const Profile = () => {
   const [currentUser, setCurrentUser] = useState("");
-  // const currentUser = AuthService.getCurrentUser();
 
   useEffect(() => {
     var user = AuthService.getCurrentUser()
     setCurrentUser(user);
-    console.log("user:", user);
-    // console.log("purchases:", user.purchases);
-    // console.log("purchases name:", user.purchases.name);
+    // console.log("user:", user);
   }, []);
 
   return (

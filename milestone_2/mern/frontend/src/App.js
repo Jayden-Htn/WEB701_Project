@@ -110,7 +110,7 @@ const App = () => {
           <Route path="/register" element={<Register/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/user" element={<BoardUser/>} />
-          <Route path="/mod" element={<BoardStaff/>} />
+          <Route path="/staff" element={<BoardStaff/>} />
           <Route path="/admin" element={<BoardAdmin/>} />
         </Routes>
       </div>

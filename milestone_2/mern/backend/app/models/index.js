@@ -11,7 +11,4 @@ db.item = require("./item.model");
 db.category = require("./category.model");
 db.config = require("./config.model");
 
-// db.ROLES = ["user", "admin", "moderator"];
-// db.CATEGORIES = ["phone", "computer", "tablet"];
-
 module.exports = db;
