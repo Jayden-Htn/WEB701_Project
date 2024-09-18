@@ -16,6 +16,7 @@ import BoardAdmin from "./components/BoardAdmin";
 const App = () => {
   const [showStaffBoard, setShowStaffBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [showUserBoard, setShowUserBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const App = () => {
       setCurrentUser(user);
       setShowStaffBoard(user.role.includes("role_staff"));
       setShowAdminBoard(user.role.includes("role_admin"));
+      setShowUserBoard(user.role.includes("role_beneficiary"));
     }
   }, []);
 
@@ -61,10 +63,10 @@ const App = () => {
             </li>
           )}
 
-          {currentUser && (
+          {showUserBoard && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
-                User
+                Shop
               </Link>
             </li>
           )}
