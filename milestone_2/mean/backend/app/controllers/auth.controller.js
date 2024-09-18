@@ -6,11 +6,15 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.register = (req, res) => {
   const user = new User({
-    username: req.body.username,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: bcrypt.hashSync(req.body.password, 8),
+    organisation: req.body.organisation,
+    tokens: 100,
+    tokenExpiry: Date("2024-12-31"),
   });
 
   user.save().then((user) => {
@@ -21,16 +25,16 @@ exports.signup = (req, res) => {
         },
         (err, roles) => {
           if (err) {
-            console.log("Error auth controller 1:", err);
+            console.log("Error 1:", err);
             res.status(500).send({ message: err });
             return;
           }
-          user.roles = roles.map(role => role._id);
+          user.role = roles.map(role => role._id);
           user.save().then(() => {
             res.send({ message: "User was registered successfully!" });
           }).catch(err => {
             if (err) {
-              console.log("Error auth controller 2:", err);
+              console.log("Error 2:", err);
               res.status(500).send({ message: err });
               return;
             }
@@ -38,8 +42,8 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }).then((role) => {
-        user.roles = [role._id];
+      Role.findOne({ name: "beneficiary" }).then((role) => {
+        user.role = role._id;
         user.save().then(() => {
           res.send({ message: "User was registered successfully!" });
         }).catch(err => {
@@ -66,66 +70,59 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.signin = (req, res) => {
+exports.login = (req, res) => {
   User.findOne({
-    username: req.body.username
-  })
-    .populate("roles", "-__v")
-    .then((user) => {
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
-      }
+    email: req.body.email
+  }).populate('role', '-__v').populate('purchases', '-__v').then((user) => {
+    if (!user) {
+      return res.status(404).send({ message: "User Not found." });
+    }
 
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
+    var passwordIsValid = bcrypt.compareSync(
+      req.body.password,
+      user.password
+    );
 
-      if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!"
-        });
-      }
-
-      const token = jwt.sign({ id: user.id },
-                              config.secret,
-                              {
-                                algorithm: 'HS256',
-                                allowInsecureKeySizes: true,
-                                expiresIn: 86400, // 24 hours
-                              });
-
-      var authorities = [];
-
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
-
-      req.session.token = token;
-
-      res.status(200).send({
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        roles: authorities,
-        accessToken: token
+    if (!passwordIsValid) {
+      return res.status(401).send({
+        accessToken: null,
+        message: "Invalid Password!"
       });
-    }).catch((err) => {
-      if (err) {
-        console.log("Error 6:", err);
-        res.status(500).send({ message: err });
-        return;
-      }
+    }
+
+    const token = jwt.sign({ id: user.id },
+                            config.secret,
+                            {
+                              algorithm: 'HS256',
+                              allowInsecureKeySizes: true,
+                              expiresIn: 86400, // 24 hours
+                            });
+
+    var authorities = [];
+    authorities.push("role_" + user.role.name.toLowerCase());
+
+    var purchaseList = [];
+    user.purchases.forEach(purchase => {
+      purchaseList.push("" + purchase.name.toLowerCase());
     });
-};
-
-
-exports.signout = async (req, res) => {
-  try {
-    req.session = null;
-    return res.status(200).send({ message: "You've been signed out!" });
-  } catch (err) {
-    this.next(err);
-  }
+    
+    res.status(200).send({
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      organisation: user.organisation,
+      tokens: user.tokens,
+      tokenExpiry: user.tokenExpiry,
+      role: authorities[0],
+      accessToken: token,
+      purchases: purchaseList
+    });
+  }).catch((err) => {
+    if (err) {
+      console.log("Error 6:", err);
+      res.status(500).send({ message: err });
+      return;
+    }
+  });
 };

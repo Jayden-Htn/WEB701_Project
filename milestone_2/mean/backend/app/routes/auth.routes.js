@@ -11,15 +11,15 @@ module.exports = function(app) {
   });
 
   app.post(
-    "/api/auth/signup",
+    "/api/auth/register",
     [
-      verifySignUp.checkDuplicateUsernameOrEmail,
+      verifySignUp.checkDuplicateEmail,
       verifySignUp.checkRolesExisted
     ],
-    controller.signup
+    controller.register
   );
 
-  app.post("/api/auth/signin", controller.signin);
+  app.post("/api/auth/login", controller.login);
 
   app.post("/api/auth/signout", controller.signout);
 };
