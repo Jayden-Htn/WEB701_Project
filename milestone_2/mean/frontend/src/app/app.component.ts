@@ -12,11 +12,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private roles: string[] = [];
+  private role: string = '';
   isLoggedIn = false;
   showAdminBoard = false;
-  showModeratorBoard = false;
-  username?: string;
+  showStaffBoard = false;
+  showUserBoard = false;
+  user: string = '';
 
   constructor(private storageService: StorageService, private authService: AuthService) { }
 
@@ -25,12 +26,14 @@ export class AppComponent {
 
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
-      this.roles = user.roles;
-
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
-      this.username = user.username;
+      if (user) {
+        this.user = user;
+        console.log("User:", user);
+        this.role = user.role;
+        this.showAdminBoard = this.role.includes('role_admin');
+        this.showStaffBoard = this.role.includes('role_staff');
+        this.showUserBoard = this.role.includes('role_user');
+      }      
     }
   }
 
@@ -39,6 +42,13 @@ export class AppComponent {
       next: res => {
         console.log(res);
         this.storageService.clean();
+
+        this.role = "";
+        this.isLoggedIn = false;
+        this.showAdminBoard = false;
+        this.showStaffBoard = false;
+        this.showUserBoard = false;
+        this.user = "";
 
         window.location.reload();
       },

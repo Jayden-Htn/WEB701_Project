@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage.service';
 
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:8080/api/page/';
 
 @Injectable({
   providedIn: 'root',
@@ -19,14 +19,11 @@ export class UserService {
     return this.http.get(API_URL + 'user', { withCredentials: true, responseType: 'text' });
   }
   
-  getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + 'mod', { withCredentials: true, responseType: 'text' });
+  getStaffBoard(): Observable<any> {
+    return this.http.get(API_URL + 'staff', { withCredentials: true, responseType: 'text' });
   }
 
   getAdminBoard(): Observable<any> {
-    const response = this.http.get(API_URL + 'admin', { withCredentials: true, responseType: 'text' });
-    console.log("Response:", response);
-    return response;
-    // return this.http.get(API_URL + 'admin', { withCredentials: true, responseType: 'text' });
+    return this.http.get(API_URL + 'admin', { withCredentials: true, responseType: 'text' });
   }
 }
