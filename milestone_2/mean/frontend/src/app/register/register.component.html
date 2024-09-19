@@ -13,28 +13,53 @@
       novalidate
     >
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="firstName">First Name</label>
         <input
           type="text"
           class="form-control"
-          name="username"
-          [(ngModel)]="form.username"
+          name="firstName"
+          [(ngModel)]="form.firstName"
           required
           minlength="3"
           maxlength="20"
-          #username="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
+          #firstName="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && firstName.errors }"
         />
-        <div class="invalid-feedback" *ngIf="username.errors && f.submitted">
-          <div *ngIf="username.errors['required']">Username is required</div>
-          <div *ngIf="username.errors['minlength']">
-            Username must be at least 3 characters
+        <div class="invalid-feedback" *ngIf="firstName.errors && f.submitted">
+          <div *ngIf="firstName.errors['required']">First name is required</div>
+          <div *ngIf="firstName.errors['minlength']">
+            firstName must be at least 3 characters
           </div>
-          <div *ngIf="username.errors['maxlength']">
+          <div *ngIf="firstName.errors['maxlength']">
             Username must be at most 20 characters
           </div>
         </div>
       </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          name="lastName"
+          [(ngModel)]="form.lastName"
+          required
+          minlength="3"
+          maxlength="20"
+          #lastName="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && lastName.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="lastName.errors && f.submitted">
+          <div *ngIf="lastName.errors['required']">Last name is required</div>
+          <div *ngIf="lastName.errors['minlength']">
+            lastName must be at least 3 characters
+          </div>
+          <div *ngIf="lastName.errors['maxlength']">
+            Username must be at most 20 characters
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -73,6 +98,29 @@
           </div>
         </div>
       </div>
+
+      <div class="form-group">
+        <label for="organisation">Organisation (optional)</label>
+        <input
+          type="text"
+          class="form-control"
+          name="organisation"
+          [(ngModel)]="form.organisation"
+          minlength="3"
+          maxlength="20"
+          #organisation="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && organisation.errors }"
+        />
+        <div class="invalid-feedback" *ngIf="organisation.errors && f.submitted">
+          <div *ngIf="organisation.errors['minlength']">
+            organisation must be at least 3 characters
+          </div>
+          <div *ngIf="organisation.errors['maxlength']">
+            Username must be at most 20 characters
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <button class="btn btn-primary btn-block">Sign Up</button>
       </div>

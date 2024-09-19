@@ -12,9 +12,11 @@ import { CommonModule } from '@angular/common';
 })
 export class RegisterComponent implements OnInit {
   form: any = {
-    username: null,
+    firstName: null,
+    lastName: null,
     email: null,
-    password: null
+    password: null,
+    organisation: null
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -26,9 +28,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { username, email, password } = this.form;
+    const { firstName, lastName, email, password, organisation } = this.form;
 
-    this.authService.register(username, email, password).subscribe({
+    this.authService.register(firstName, lastName, email, password, organisation).subscribe({
       next: data => {
         console.log(data);
         this.isSuccessful = true;
