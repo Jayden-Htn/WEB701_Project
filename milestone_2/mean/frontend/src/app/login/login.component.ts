@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { email, password } = this.form;
-    console.log("Sending:", email, password);
     this.authService.login(email, password).subscribe({
       next: data => {
         this.storageService.saveUser(data);
@@ -43,6 +42,7 @@ export class LoginComponent implements OnInit {
         this.reloadPage();
       },
       error: err => {
+        console.log("Error");
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
