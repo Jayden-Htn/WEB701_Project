@@ -11,7 +11,7 @@
       <li class="nav-item" *ngIf="showStaffBoard">
         <a href="/staff" class="nav-link" routerLink="mod">Staff</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="showUserBoard">
         <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">Shop</a>
       </li>
     </ul>
