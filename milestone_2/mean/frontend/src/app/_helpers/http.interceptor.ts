@@ -5,7 +5,6 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   let token = null;
   if (user) {
     token = (JSON.parse(user))['accessToken'];
-    console.log("User interceptor 2:", token);
   }
   
   req = req.clone({

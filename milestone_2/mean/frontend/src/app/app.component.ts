@@ -3,6 +3,7 @@ import { StorageService } from './_services/storage.service';
 import { AuthService } from './_services/auth.service';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
   showUserBoard = false;
   user: string = '';
 
-  constructor(private storageService: StorageService, private authService: AuthService) { }
+  constructor(private storageService: StorageService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
@@ -28,7 +29,6 @@ export class AppComponent {
       const user = this.storageService.getUser();
       if (user) {
         this.user = user;
-        console.log("User:", user);
         this.role = user.role;
         this.showAdminBoard = this.role.includes('role_admin');
         this.showStaffBoard = this.role.includes('role_staff');
@@ -50,7 +50,7 @@ export class AppComponent {
         this.showUserBoard = false;
         this.user = "";
 
-        window.location.reload();
+        this.router.navigate(['/home']);
       },
       error: err => {
         console.log(err);

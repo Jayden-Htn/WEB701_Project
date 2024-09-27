@@ -17,6 +17,20 @@ export class StorageService {
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
+  public updateUser(data: any): any {
+    let user = this.getUser();
+    if (user) {
+      data = JSON.parse(data); // But Why??? Mern doesn't need this
+      user.tokens = data.tokens;
+      user.purchases = data.purchases;
+      window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+      return user;
+    } else {
+      console.log("Error: User not found in localStorage");
+      return null;
+    }
+  }
+
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
