@@ -30,9 +30,10 @@ export class AppComponent {
       if (user) {
         this.user = user;
         this.role = user.role;
+        console.log("User", user);
         this.showAdminBoard = this.role.includes('role_admin');
         this.showStaffBoard = this.role.includes('role_staff');
-        this.showUserBoard = this.role.includes('role_user');
+        this.showUserBoard = this.role.includes('role_beneficiary');
       }      
     }
   }
