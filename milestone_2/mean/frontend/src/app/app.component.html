@@ -2,15 +2,19 @@
   <nav class="navbar navbar-expand">
     <a href="#" class="navbar-brand">Re:Tech</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <!-- Home always shown -->
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
       </li>
+      <!-- Only for admins -->
       <li class="nav-item" *ngIf="showAdminBoard">
         <a href="/admin" class="nav-link" routerLink="admin">Admin</a>
       </li>
+      <!-- Only for staff -->
       <li class="nav-item" *ngIf="showStaffBoard">
         <a href="/staff" class="nav-link" routerLink="mod">Staff</a>
       </li>
+      <!-- Only for beneficiaries -->
       <li class="nav-item" *ngIf="showUserBoard">
         <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">Shop</a>
       </li>

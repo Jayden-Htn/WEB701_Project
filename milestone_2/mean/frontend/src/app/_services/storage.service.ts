@@ -18,9 +18,11 @@ export class StorageService {
   }
 
   public updateUser(data: any): any {
+    // Get current user data stored in session storage
     let user = this.getUser();
     if (user) {
-      data = JSON.parse(data); // But Why??? Mern doesn't need this
+      data = JSON.parse(data);
+      // Update values from purchase
       user.tokens = data.tokens;
       user.purchases = data.purchases;
       window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));

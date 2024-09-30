@@ -17,6 +17,7 @@ export class BoardUserComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    // Get items
     this.userService.getUserBoard().subscribe({
       next: data => {
         this.content = JSON.parse(data)

@@ -30,14 +30,17 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // Log in form submit
   onSubmit(): void {
     const { email, password } = this.form;
+    // Send email and password to login backend through service
     this.authService.login(email, password).subscribe({
       next: data => {
+        // If successful, save the user
         this.storageService.saveUser(data);
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        // get logged in role
         this.role = this.storageService.getUser().role;
         this.reloadPage();
       },

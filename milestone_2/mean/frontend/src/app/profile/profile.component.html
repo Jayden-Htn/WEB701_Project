@@ -1,32 +1,18 @@
 <div class="container" *ngIf="currentUser; else loggedOut">
+    <!-- Construct profile and display data -->
     <header class="jumbotron">
         <h3>Profile</h3>
     </header>
-    <p>
-        <strong>Name:</strong> {{ currentUser.firstName }} {{ currentUser.lastName }}
-    </p>
-    <p>
-        <strong>Token:</strong> {{ currentUser.accessToken }}
-    </p>
-    <p>
-        <strong>Id:</strong> {{ currentUser.id }}
-    </p>
-    <p>
-        <strong>Email:</strong> {{ currentUser.email }}
-    </p>
-    <p>
-        <strong>Organisation:</strong> {{ currentUser.organisation || "N/A"}}
-    </p>
-    <p>
-        <strong>Role:</strong> {{ currentUser.role }}
-    </p>
-    <p>
-        <strong>Tokens:</strong> {{ currentUser.tokens }}
-    </p>
-    <p>
-        <strong>Token Expiry:</strong> {{ currentUser.tokenExpiry }}
-    </p>
-    <strong>Purchases:</strong>
+    <p><strong>Name:</strong> {{ currentUser.firstName }} {{ currentUser.lastName }}</p>
+    <p><strong>Token:</strong> {{ currentUser.accessToken }}</p>
+    <p><strong>Id:</strong> {{ currentUser.id }}</p>
+    <p><strong>Email:</strong> {{ currentUser.email }}</p>
+    <p><strong>Organisation:</strong> {{ currentUser.organisation || "N/A"}}</p>
+    <p><strong>Role:</strong> {{ currentUser.role }}</p>
+    <p><strong>Tokens:</strong> {{ currentUser.tokens }}</p>
+    <p><strong>Token Expiry:</strong> {{ currentUser.tokenExpiry }}</p>
+    <!-- Make purchase list -->  
+     <strong>Purchases:</strong>
     <ul>
         <li *ngFor="let purchase of currentUser.purchases">
         {{ purchase }}

@@ -15,13 +15,9 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
+    // Send http API call to backend login route with user details
     return this.http.post(
-      AUTH_API + 'login',
-      {
-        email,
-        password,
-      },
-      httpOptions
+      AUTH_API + 'login', {email, password,}, httpOptions
     );
   }
 

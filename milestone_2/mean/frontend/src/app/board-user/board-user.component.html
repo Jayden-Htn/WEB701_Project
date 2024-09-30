@@ -1,9 +1,11 @@
 <div class="container">
   <h3>Store</h3>
   <div id="container">
+    <!-- Create item component for each shop item -->
     <div *ngIf="content">
       <app-item *ngFor="let item of content" [item] = "item"></app-item>
     </div>
+    <!-- Default message if no items -->
     <div *ngIf="!content || content.length === 0">
       <p>No items available</p>
     </div>

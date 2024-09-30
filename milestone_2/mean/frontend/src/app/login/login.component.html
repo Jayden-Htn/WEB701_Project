@@ -12,6 +12,7 @@
         #f="ngForm"
         novalidate
       >
+        <!-- Email input -->
         <div class="form-group">
           <label for="email">Email</label>
           <input
@@ -23,10 +24,12 @@
             #email="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
           />
+          <!-- Email errors -->
           <div *ngIf="email.errors && f.submitted" class="invalid-feedback">
             Email is required!
           </div>
         </div>
+        <!-- Password input -->
         <div class="form-group">
           <label for="password">Password</label>
           <input
@@ -39,6 +42,7 @@
             #password="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
           />
+          <!-- password errors -->
           <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
             <div *ngIf="password.errors['required']">Password is required</div>
             <div *ngIf="password.errors['minlength']">
@@ -46,11 +50,13 @@
             </div>
           </div>
         </div>
+        <!-- Submit button -->
         <div class="form-group">
           <button class="btn btn-primary btn-block">
             Login
           </button>
         </div>
+        <!-- Fail message -->
         <div class="form-group">
           <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
             Login failed: {{ errorMessage }}

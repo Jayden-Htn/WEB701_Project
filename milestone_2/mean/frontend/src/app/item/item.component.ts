@@ -32,10 +32,10 @@ export class ItemComponent {
   onPurchase() {
     if (this.item.quantityAvailable > 0) {
       console.log("Purchasing:", this.item.name);
-
+      // Process purchase in service and backend
       this.shopService.purchaseItem(this.item._id).then(() => {
           console.log(`${this.item.name} purchased successfully`);
-          // Navigate to account
+          // if successful, navigate to account
           this.router.navigate(['/profile']);
         }).catch((err) => {
           console.log("Purchase error:", err);

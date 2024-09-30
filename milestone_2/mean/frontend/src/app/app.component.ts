@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // Store which pages should be shown based of user's role
   private role: string = '';
   isLoggedIn = false;
   showAdminBoard = false;
@@ -24,7 +25,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
-
+    // If logged in, set what access the user has
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
       if (user) {

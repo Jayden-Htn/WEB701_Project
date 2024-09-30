@@ -12,8 +12,10 @@ export class ShopService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
     purchaseItem = (id: string) => {
+      // Process purchase in backend
       return lastValueFrom(this.http.patch(API_URL + 'purchase', { id: id }, { withCredentials: true, responseType: 'text' }))
       .then(response => {
+        // If successful, add purchase to user and update tokens
         return this.storageService.updateUser(response);
       })
       .catch(err => {
