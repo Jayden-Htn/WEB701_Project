@@ -7,6 +7,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.register = (req, res) => {
+  // Construct new user object from request
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -17,12 +18,12 @@ exports.register = (req, res) => {
     tokenExpiry: Date("2024-12-31"),
   });
 
+  // Save new user to database
   user.save().then((user) => {
     if (req.body.roles) {
+      // Find and map any given user roles to role objects in database
       Role.find(
-        {
-          name: { $in: req.body.roles }
-        },
+        {name: { $in: req.body.roles }},
         (err, roles) => {
           if (err) {
             console.log("Error 1:", err);
@@ -42,6 +43,7 @@ exports.register = (req, res) => {
         }
       );
     } else {
+      // Or add default beneficiary role if none given
       Role.findOne({ name: "beneficiary" }).then((role) => {
         user.role = role._id;
         user.save().then(() => {
@@ -71,6 +73,7 @@ exports.register = (req, res) => {
 };
 
 exports.login = (req, res) => {
+  // Find if there is an account with the same email, account exists?
   User.findOne({
     email: req.body.email
   }).populate('role', '-__v').populate('purchases', '-__v').then((user) => {
@@ -78,11 +81,11 @@ exports.login = (req, res) => {
       return res.status(404).send({ message: "User Not found." });
     }
 
+    // Compare encrypted passwords
     var passwordIsValid = bcrypt.compareSync(
       req.body.password,
       user.password
     );
-
     if (!passwordIsValid) {
       return res.status(401).send({
         accessToken: null,
@@ -90,6 +93,7 @@ exports.login = (req, res) => {
       });
     }
 
+    // User authenticated! Make token for the user to use to prove their identity
     const token = jwt.sign({ id: user.id },
                             config.secret,
                             {
@@ -97,7 +101,8 @@ exports.login = (req, res) => {
                               allowInsecureKeySizes: true,
                               expiresIn: 86400, // 24 hours
                             });
-
+    
+    // Roles and purchases were populated earlier, now make string list versions                
     var authorities = [];
     authorities.push("role_" + user.role.name.toLowerCase());
 
@@ -106,6 +111,7 @@ exports.login = (req, res) => {
       purchaseList.push("" + purchase.name.toLowerCase());
     });
     
+    // Send user data back to frontend
     res.status(200).send({
       id: user._id,
       firstName: user.firstName,
