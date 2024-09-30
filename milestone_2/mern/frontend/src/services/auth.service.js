@@ -13,18 +13,13 @@ const register = (firstName, lastName, email, password, organisation) => {
 };
 
 const login = (email, password) => {
-  return axios
-    .post(API_URL + "login", {
-      email,
-      password,
-    })
-    .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-
-      return response.data;
-    });
+  return axios.post(API_URL + "login", {email, password,}).then((response) => {
+    // If successfully logged in, store user data locally
+    if (response.data.accessToken) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
+  });
 };
 
 const logout = () => {
@@ -40,9 +35,10 @@ const getCurrentUser = () => {
 };
 
 const updateCurrentUser = (data) => {
+  // Get current user data
   let currentUser = getCurrentUser();
   if (currentUser) {
-    // Update the balance
+    // Update user purchases and token amount
     currentUser.tokens = data.tokens;  
     currentUser.purchases = data.purchases;  
     localStorage.setItem("user", JSON.stringify(currentUser));

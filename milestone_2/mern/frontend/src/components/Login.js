@@ -7,6 +7,7 @@ const required = (value) => !value ? "This field is required!" : "";
 const Login = () => {
   const navigate = useNavigate();
 
+  // Set up use states for each form field
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ const Login = () => {
     password: ""
   });
 
+  // Validate that the imputs are valid
   const validate = () => {
     const newErrors = { email: "", password: "" };
     let isValid = true;
@@ -30,15 +32,17 @@ const Login = () => {
     return isValid;
   };
 
+  // Validate and send login inputs to auth service
   const handleLogin = (e) => {
     e.preventDefault();
-
     setMessage("");
-    setLoading(true);
-
+    setLoading(true); // Start loading icon
+    // Validate inputs
     if (validate()) {
+      // Send inputs to service to go to backend
       AuthService.login(email, password).then(
         () => {
+          // Successful login, go to profile
           navigate("/profile");
           window.location.reload();
         },
@@ -47,7 +51,6 @@ const Login = () => {
             (error.response && error.response.data && error.response.data.message) ||
             error.message ||
             error.toString();
-
           setLoading(false);
           setMessage(resMessage);
         }
@@ -65,8 +68,9 @@ const Login = () => {
           alt="profile-img"
           className="profile-img-card"
         />
-
+        // Create form with submit function
         <form onSubmit={handleLogin}>
+          // Email input
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -78,7 +82,7 @@ const Login = () => {
             />
             {errors.email && <div className="alert alert-danger" role="alert">{errors.email}</div>}
           </div>
-
+          // Password input
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -90,7 +94,7 @@ const Login = () => {
             />
             {errors.password && <div className="alert alert-danger" role="alert">{errors.password}</div>}
           </div>
-
+          // Loading symbol for when loading is true
           <div className="form-group">
             <button className="btn-primary btn-block" disabled={loading}>
               {loading && (
@@ -99,7 +103,7 @@ const Login = () => {
               <span>Login</span>
             </button>
           </div>
-
+          // Alert messages
           {message && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">

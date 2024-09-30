@@ -7,41 +7,24 @@ const Profile = () => {
   useEffect(() => {
     var user = AuthService.getCurrentUser()
     setCurrentUser(user);
-    // console.log("user:", user);
   }, []);
 
   return (
+    // Construct user profile and display data
     <div className="container">
       <header className="jumbotron">
         <h3>Profile</h3>
       </header>
-      <p>
-        <strong>Name:</strong> {currentUser.firstName} {currentUser.lastName}
-      </p>
-      <p>
-        <strong>Token:</strong> {currentUser.accessToken} {/*{currentUser.accessToken.substring(0, 20)} ...{" "} */}
-        {/*{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}*/}
-      </p>
-      <p>
-        <strong>Id:</strong> {currentUser.id}
-      </p>
-      <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p>
-      <p>
-        <strong>Organisation:</strong> {currentUser.organisation || "N/A"}
-      </p>
-      <p>
-        <strong>Roles:</strong> {currentUser.role}
-      </p>
-      <p>
-        <strong>Tokens:</strong> {currentUser.tokens}
-      </p>
-      <p>
-        <strong>Token expiry:</strong> {currentUser.tokenExpiry}
-      </p>
-      <p>
-        <strong>Purchases:</strong></p>
+      <p><strong>Name:</strong> {currentUser.firstName} {currentUser.lastName}</p>
+      <p><strong>Token:</strong> {currentUser.accessToken}</p>
+      <p><strong>Id:</strong> {currentUser.id}</p>
+      <p><strong>Email:</strong> {currentUser.email}</p>
+      <p><strong>Organisation:</strong> {currentUser.organisation || "N/A"}</p>
+      <p><strong>Roles:</strong> {currentUser.role}</p>
+      <p><strong>Tokens:</strong> {currentUser.tokens}</p>
+      <p><strong>Token expiry:</strong> {currentUser.tokenExpiry}</p>
+      // Map purchases to list
+      <p><strong>Purchases:</strong></p>
       <ul>
         {
           Array.isArray(currentUser.purchases) ? (

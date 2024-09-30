@@ -28,8 +28,10 @@ const BoardUser = () => {
   }, []);
 
   const purchase = (id) => {
-    setLoading(true);
+    setLoading(true); // Disable shop while processing
+    // Send item id to service for processing
     ShopService.purchaseItem(id).then(() => {
+      // If successful, go to profile
       setLoading(false);
       navigate("/profile");
       window.location.reload();
