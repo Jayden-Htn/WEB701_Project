@@ -6,6 +6,7 @@ exports.allAccess = (req, res) => {
 };
 
 exports.userBoard = (req, res) => {
+  // Find all shop items
   Item.find().then((items) => {
     res.status(200).send(items);
   }).catch((err) => {

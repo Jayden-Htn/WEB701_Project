@@ -3,21 +3,17 @@ const ROLES = db.ROLES;
 const User = db.user;
 
 checkDuplicateEmail = (req, res, next) => {
+  // Try find existing account with email
   User.findOne({
     email: req.body.email
   }).then((user) => {
+    // Email in use, can't make a new account with it
     if (user) {
       res.status(400).send({ message: "Failed! Email is already in use!" });
-      return;
     }
-
     next();
   }).catch((err) => {
-    if (err) {
-      console.log("Error 1: email");
-      res.status(500).send({ message: err });
-      return;
-    }
+    res.status(500).send({ message: err });
   });
 };
 
@@ -28,7 +24,6 @@ checkRolesExisted = (req, res, next) => {
         res.status(400).send({
           message: `Failed! Role ${req.body.roles[i]} does not exist!`
         });
-        return;
       }
     }
   }

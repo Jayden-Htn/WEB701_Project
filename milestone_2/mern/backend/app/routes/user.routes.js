@@ -16,13 +16,11 @@ module.exports = function(app) {
 
   app.get(
     "/api/page/staff",
-    [authJwt.verifyToken, authJwt.isStaff],
-    controller.staffBoard
+    [authJwt.verifyToken, authJwt.isStaff], controller.staffBoard
   );
 
   app.get(
     "/api/page/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
+    [authJwt.verifyToken, authJwt.isAdmin], controller.adminBoard
   );
 };

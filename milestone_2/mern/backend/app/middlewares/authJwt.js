@@ -5,17 +5,18 @@ const User = db.user;
 const Role = db.role;
 
 verifyToken = (req, res, next) => {
+  // Get token from request
   let token = req.headers["x-access-token"];
 
+  // Check if token is present
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
 
+  // Verify the token is valid
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
-      return res.status(401).send({
-        message: "Unauthorized!",
-      });
+      return res.status(401).send({message: "Unauthorized!",});
     }
     req.userId = decoded.id;
     next();
@@ -23,7 +24,9 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
+  // Find user in database
   User.findById(req.userId).then((user) => {
+    // Check each role to see if it is admin
     Role.find({_id: { $in: user.role }}).then((role) => {
         for (let i = 0; i < role.length; i++) {
           if (role[i].name === "admin") {
@@ -46,7 +49,9 @@ isAdmin = (req, res, next) => {
 };
 
 isStaff = (req, res, next) => {
+  // Find user in database
   User.findById(req.userId).then((user) => {
+    // Check each role to see if it is staff
     Role.find({_id: { $in: user.role }}).then((role) => {
         for (let i = 0; i < role.length; i++) {
           if (role[i].name === "staff") {
@@ -54,7 +59,6 @@ isStaff = (req, res, next) => {
             return;
           }
         }
-
         res.status(403).send({ message: "Require Staff Role!" });
         return;
       }
