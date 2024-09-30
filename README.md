@@ -3,12 +3,18 @@ Project repository for WEB701.
 
 This repository includes the web app and report document.
 
+<b>Content:</b>
+- [Repo setup](#setup)
+- [Run commands](#milestones)
+- [User accounts](#Users)
+- [GitHub & DevOps](#external-links)
+
 
 ## Setup
 To install all dependencies run:
 - `npm run post-install`
 
-This will install the dependecies for all milestones and required subfolders.
+This will install the dependencies for all milestones and required subfolders.
 
 ## Milestones
 
@@ -29,3 +35,25 @@ To run MERN:
 To run MEAN:
 1. `npm run m2-mean-f` from the top level to start the frontend
 2. `npm run m2-mean-b` from the top level to start the backend
+
+## Users
+In Milestone two there are 3 pre-made users:
+1. Beneficiary account
+   - Email: beneficiary@gmail.com
+   - Pw: Password123
+2. Staff account
+   - Email: staff@gmail.com
+   - Pw: Password123
+3. Admin account
+   - Email: admin@gmail.com
+   - Pw: Password123
+
+## External Links
+
+[GitHub Repo](https://github.com/Jayden-Htn/WEB701_Project)
+
+[DevOps Project](https://dev.azure.com/Jayden-Houghton/WEB701%20Charity%20Website)
+
+[DevOps Board](https://dev.azure.com/Jayden-Houghton/WEB701%20Charity%20Website/_boards/board/t/WEB701%20Charity%20Website%20Team/Stories)
+
+[DevOps Backlog](https://dev.azure.com/Jayden-Houghton/WEB701%20Charity%20Website/_backlogs/backlog/WEB701%20Charity%20Website%20Team/Features/?showParents=true)
