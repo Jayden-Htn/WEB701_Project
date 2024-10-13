@@ -23,7 +23,7 @@ const Profile = () => {
       <p><strong>Roles:</strong> {currentUser.role}</p>
       <p><strong>Tokens:</strong> {currentUser.tokens}</p>
       <p><strong>Token expiry:</strong> {currentUser.tokenExpiry}</p>
-      // Map purchases to list
+      {/* Map purchases to list */}
       <p><strong>Purchases:</strong></p>
       <ul>
         {

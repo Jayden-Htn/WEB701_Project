@@ -68,9 +68,9 @@ const Login = () => {
           alt="profile-img"
           className="profile-img-card"
         />
-        // Create form with submit function
+        {/* Create form with submit function */}
         <form onSubmit={handleLogin}>
-          // Email input
+          {/* Email input */}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -82,7 +82,7 @@ const Login = () => {
             />
             {errors.email && <div className="alert alert-danger" role="alert">{errors.email}</div>}
           </div>
-          // Password input
+          {/* Password input */}
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -94,7 +94,7 @@ const Login = () => {
             />
             {errors.password && <div className="alert alert-danger" role="alert">{errors.password}</div>}
           </div>
-          // Loading symbol for when loading is true
+          {/* Loading symbol for when loading is true */}
           <div className="form-group">
             <button className="btn-primary btn-block" disabled={loading}>
               {loading && (
@@ -103,7 +103,7 @@ const Login = () => {
               <span>Login</span>
             </button>
           </div>
-          // Alert messages
+          {/* Alert messages */}
           {message && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
