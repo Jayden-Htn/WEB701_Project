@@ -9,12 +9,16 @@
     "m2-mern-b": "cd ./milestone_2/mern/backend && nodemon server",
     "m2-mean-f": "cd ./milestone_2/mean/frontend && ng serve",
     "m2-mean-b": "cd ./milestone_2/mean/backend && nodemon server",
+    "m3-f": "cd ./milestone_3/frontend && npm start",
+    "m3-b": "cd ./milestone_3/backend && nodemon server",
     "m1-install": "cd ./milestone_1 && npm install",
     "m2-install-mern-f": "cd ./milestone_2/mern/frontend && npm install",
     "m2-install-mern-b": "cd ./milestone_2/mern/backend && npm install",
     "m2-install-mean-f": "cd ./milestone_2/mean/frontend && npm install",
     "m2-install-mean-b": "cd ./milestone_2/mean/backend && npm install",
-    "post-install": "npm run m1-install && npm run m2-install-mern-f && npm run m2-install-mern-b && npm run m2-install-mean-f && npm run m2-install-mean-b"
+    "m3-install-f": "cd ./milestone_3/frontend && npm install",
+    "m3-install-b": "cd ./milestone_3/backend && npm install",
+    "post-install": "npm run m1-install && npm run m2-install-mern-f && npm run m2-install-mern-b && npm run m2-install-mean-f && npm run m2-install-mean-b && npm run m3-install-f && npm run m3-install-b"
   },
   "keywords": [],
   "author": "",

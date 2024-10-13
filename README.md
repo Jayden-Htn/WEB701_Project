@@ -30,11 +30,18 @@ Milestone 2 contains prototype applications in MERN and MEAN.
 
 To run MERN:
 1. `npm run m2-mern-f` from the top level to start the frontend
-2. `npm run m2-mern-b` from the top level to start the backend
+2. `npm run m2-mern-b` from the top level to start the backend (new terminal)
 
 To run MEAN:
 1. `npm run m2-mean-f` from the top level to start the frontend
-2. `npm run m2-mean-b` from the top level to start the backend
+2. `npm run m2-mean-b` from the top level to start the backend (new terminal)
+
+### Milestone 3
+Milestone 3 contains the full MERN implementation.
+
+To run:
+1. `npm run m3-f` from the top level to start the frontend
+2. `npm run m3-b` from the top level to start the backend (new terminal)
 
 ## Users
 In Milestone two there are 3 pre-made users:
