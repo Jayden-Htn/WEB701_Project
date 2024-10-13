@@ -17,7 +17,7 @@ const Login = () => {
     password: ""
   });
 
-  // Validate that the imputs are valid
+  // Validate that the inputs are valid
   const validate = () => {
     const newErrors = { email: "", password: "" };
     let isValid = true;
