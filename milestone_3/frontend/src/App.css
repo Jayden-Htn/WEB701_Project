@@ -36,3 +36,27 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+/* Reset bootstrap spaces to handle manually */
+.container {
+  --bs-gutter-x: 0;
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+/* Nav bar */
+.navbar-brand {
+  margin-right: auto;
+}
+.nav-item {
+  margin: 5px 10px;
+}
+

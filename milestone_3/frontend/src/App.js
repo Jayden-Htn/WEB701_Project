@@ -51,6 +51,18 @@ const App = () => {
             </Link>
           </li>
 
+          <li className="nav-item">
+            <Link to={"/about"} className="nav-link">
+              About
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to={"/contact"} className="nav-link">
+              Contact
+            </Link>
+          </li>
+
           {showStaffBoard && (
             <li className="nav-item">
               <Link to={"/staff"} className="nav-link">
@@ -99,14 +111,14 @@ const App = () => {
 
             <li className="nav-item">
               <Link to={"/register"} className="nav-link">
-                Sign Up
+                Register
               </Link>
             </li>
           </div>
         )}
       </nav>
 
-      <div className="container mt-3">
+      <div className="container">
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/home" element={<Home/>} />
