@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import AuthService from "../services/auth.service";
+import styles from "./Login.module.css";
 
 const required = (value) => !value ? "This field is required!" : "";
 
@@ -61,13 +62,8 @@ const Login = () => {
   };
 
   return (
-    <div className="col-md-12">
+    <body>
       <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
         {/* Create form with submit function */}
         <form onSubmit={handleLogin}>
           {/* Email input */}
@@ -96,7 +92,7 @@ const Login = () => {
           </div>
           {/* Loading symbol for when loading is true */}
           <div className="form-group">
-            <button className="btn-primary btn-block" disabled={loading}>
+            <button className={styles.button} disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
@@ -113,7 +109,7 @@ const Login = () => {
           )}
         </form>
       </div>
-    </div>
+    </body>
   );
 };
 

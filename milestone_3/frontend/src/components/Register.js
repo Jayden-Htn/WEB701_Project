@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
+import styles from "./Register.module.css";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -92,12 +93,6 @@ const Register = () => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
         <form onSubmit={handleRegister}>
           {!successful && (
             <div>
@@ -162,7 +157,7 @@ const Register = () => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
+                <button className={styles.button}>Sign Up</button>
               </div>
             </div>
           )}

@@ -1,0 +1,14 @@
+body {
+    min-height: 60vh;
+}
+
+.button {
+    font-size: 18px;
+    color: white;
+    background-color: #18114c;
+    border-radius: 8px;
+    border: none;
+    padding: 4px 10px;
+    width: 160px;
+    margin: 20px auto 0 calc(50% - 80px);
+}
