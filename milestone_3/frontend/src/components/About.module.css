@@ -1,0 +1,100 @@
+/* Hero section */
+.hero img {
+    width: calc(100vw - 10px);
+}
+.heroTitle {
+    size: 80px;
+    position: absolute;
+    top: 280px;
+    left: 150px;
+    color: white;
+}
+
+/* Overview section */
+.overview {
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 40px 10vw;
+    gap: 40px;
+    width: calc(100vw - 10px);
+}
+.overviewSection {
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: justify;
+    padding: 30px 40px;
+}
+.overviewSection h3 {
+    margin: 0 0 20px 0;
+}
+
+/* Steps section */
+.steps {
+    width: calc(100vw - 10px);
+    background-color: #18114c;
+    padding: 40px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.steps h3 {
+    color: white;
+    width: calc(100vw - 10px);
+    background-color: #18114c;
+}
+.stepsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 40px;
+    padding: 0px 10vw;
+}
+.stepsSection {
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: justify;
+    padding: 20px 30px 10px 30px;
+}
+
+/* Board section */
+.board {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+.boardContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1vw;
+}
+.boardSection {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.boardSection img {
+    width: 100px;
+    border-radius: 100%;
+    margin-bottom: 8px;
+}
+.boardSection h4 {
+    font-size: 18px;
+}
+

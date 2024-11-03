@@ -96,14 +96,14 @@ const Home = () => {
           <div className={styles.infoSectionText}>
             <h3>Get In Contact</h3>
             <p>
-              Need assistance? You can register with Re:Tech by filling out our form or contacting us directly. 
+              Need assistance? You can register with Re:Tech by making an account or contacting us directly. 
               We're here to help you access essential technology.
             </p>
             <p>
               Want to get involved? Enquire about becoming a volunteer and make a difference in your community.
             </p>
             <p>
-              Support our mission! Businesses and individuals can donate money or old devices, giving those in 
+              Support our mission by donating money or old devices, giving those in 
               need the opportunity to connect and thrive while reducing e-waste.
             </p>
             <button onClick={() => navigate("/contact")}>CONTACT US</button>

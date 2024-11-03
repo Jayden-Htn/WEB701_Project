@@ -60,3 +60,40 @@ html, body {
   margin: 5px 10px;
 }
 
+/* Logo */
+.logo {
+  width: 40px;
+  margin-right: 20px;
+}
+
+
+/* Footer */
+footer {
+  display: flex;
+  flex-direction: row;
+  background-color: #1e1c1c;
+  color: #c0c0c0;
+  width: calc(100vw - 10px);
+  justify-content: space-around;
+  padding: 20px;
+}
+footer-section {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+footer-section h3 {
+  font-size: 20px;
+}
+footer-section p {
+  font-size: 16px;
+}
+.footer-link {
+  margin: 0;
+  padding: 0;
+  color: #c0c0c0;
+  font-size: 16px;
+}
+.footer-link-override {
+  margin: 5px 0;
+}

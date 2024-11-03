@@ -1,0 +1,78 @@
+/* Hero section */
+.hero img {
+    width: calc(100vw - 10px);
+}
+.heroTitle {
+    size: 80px;
+    position: absolute;
+    top: 280px;
+    left: 150px;
+    color: white;
+}
+
+/* Main body section */
+.mainBody {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    padding: 40px;
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 40%;
+    margin-left: 40px;
+}
+.article h3 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.socialContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.iconDot {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 60%;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.aside form {
+    width: 60%;
+}
+.aside input {
+    margin-bottom: 20px;
+}
+.aside textarea {
+    margin-bottom: 20px;
+    height: 160px;
+}
+.aside button {
+    font-size: 20px;
+    color: white;
+    background-color: #18114c;
+    border-radius: 8px;
+    border: none;
+    padding: 4px 10px;
+    width: 190px;
+    width: 100px;
+    margin: 0 auto 0 calc(50% - 50px);
+}
+
