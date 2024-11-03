@@ -62,7 +62,7 @@ const Login = () => {
   };
 
   return (
-    <body>
+    <div className={styles.bodySection}>
       <div className="card card-container">
         {/* Create form with submit function */}
         <form onSubmit={handleLogin}>
@@ -109,7 +109,7 @@ const Login = () => {
           )}
         </form>
       </div>
-    </body>
+    </div>
   );
 };
 

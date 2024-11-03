@@ -8,6 +8,9 @@ var bcrypt = require("bcryptjs");
 
 exports.register = (req, res) => {
   // Construct new user object from request
+
+  console.log("Req.body:", req.body);
+
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -20,17 +23,11 @@ exports.register = (req, res) => {
 
   // Save new user to database
   user.save().then((user) => {
-    if (req.body.roles) {
+    if (req.body.role) {
       // Find and map any given user roles to role objects in database
-      Role.find(
-        {name: { $in: req.body.roles }},
-        (err, roles) => {
-          if (err) {
-            console.log("Error 1:", err);
-            res.status(500).send({ message: err });
-            return;
-          }
-          user.role = roles.map(role => role._id);
+      Role.find({name: { $in: req.body.role }}).then((role) => {
+        console.log("Found:", role);
+          user.role = role.map(role => role._id);
           user.save().then(() => {
             res.send({ message: "User was registered successfully!" });
           }).catch(err => {
@@ -40,6 +37,12 @@ exports.register = (req, res) => {
               return;
             }
           });
+      }).catch((err) => {
+          if (err) {
+            console.log("Error 1:", err);
+            res.status(500).send({ message: err });
+            return;
+          }
         }
       );
     } else {

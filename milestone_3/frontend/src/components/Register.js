@@ -8,6 +8,7 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [organisation, setOrganisation] = useState("");
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
@@ -17,11 +18,12 @@ const Register = () => {
     lastName: "",
     email: "",
     password: "",
+    role: "",
     organisation: ""
   });
 
   const validate = () => {
-    const newErrors = { firstName: "", lastName: "", email: "", password: "", organisation: ""};
+    const newErrors = { firstName: "", lastName: "", email: "", password: "", role: "", organisation: ""};
     let isValid = true;
 
     if (!firstName) {
@@ -72,7 +74,7 @@ const Register = () => {
     setSuccessful(false);
 
     if (validate()) {
-      AuthService.register(firstName, lastName, email, password, organisation).then(
+      AuthService.register(firstName, lastName, email, password, role, organisation).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -142,6 +144,15 @@ const Register = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 {errors.password && <div className="alert alert-danger" role="alert">{errors.password}</div>}
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="role">Account Type</label>
+                <select name="role"  value={role} onChange={(e) => setRole(e.target.value)}>
+                  <option value="beneficiary">Beneficiary</option>
+                  <option value="donator">Donator</option>
+                </select>
+                {errors.role && <div className="alert alert-danger" role="alert">{errors.role}</div>}
               </div>
 
               <div className="form-group">
