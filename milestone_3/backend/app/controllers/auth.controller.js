@@ -144,3 +144,26 @@ exports.logout = async (req, res) => {
     this.next(err);
   }
 };
+
+exports.update = (req, res) => {
+  console.log("ENTER request body:", req.body);
+
+  User.findByIdAndUpdate(
+    req.body.id, 
+    { $set: { 
+      firstname: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      organisation: req.body.organisation
+    } },
+    { new: true, runValidators: true }
+  )
+  .then((updatedUser) => {
+    console.log("Updated user:", updatedUser);
+    res.send({ message: "User was updated successfully!" });
+  })
+  .catch((error) => {
+    console.error("Error updating user:", error);
+    res.status(500).send({ message: err });
+  });
+};

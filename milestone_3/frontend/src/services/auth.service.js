@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -30,7 +31,6 @@ const logout = () => {
   });
 };
 
-
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
@@ -50,6 +50,17 @@ const updateCurrentUser = (data) => {
   }
 };
 
+const update = (id, firstName, lastName, email, organisation) => {
+  return axios.post(API_URL + "update", {
+    id,
+    firstName,
+    lastName,
+    email,
+    organisation
+  }, { headers: authHeader() }
+);
+};
+
 
 const AuthService = {
   register,
@@ -57,6 +68,7 @@ const AuthService = {
   logout,
   getCurrentUser,
   updateCurrentUser,
+  update
 };
 
 export default AuthService;

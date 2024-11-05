@@ -1,0 +1,82 @@
+.container {
+    margin: 40px 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+.tokens {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #18114c;
+    border-radius: 20px;
+    width: 40vw;
+    padding: 20px 30px 5px 30px;
+    color: white;
+    margin: 0;
+}
+
+.tokensLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 0 200px;
+    gap: 5px;
+}
+.tokens h3 {
+    font-size: 20px;
+}
+.tokens h4 {
+    font-size: 40px;
+}
+.tokens p {
+    font-size: 14px;
+}
+
+.tokensRight {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 200px;
+    align-items: end;
+}
+
+.mainBody {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 80px;
+}
+form {
+    flex: 1 0 400px;
+}
+.purchaseHistory {
+    flex: 1 0 400px;
+}
+
+.messageBox {
+    margin-top: 20px;
+}
+
+
+.button {
+    font-size: 18px;
+    color: white;
+    background-color: #18114c;
+    border-radius: 8px;
+    border: none;
+    padding: 4px 10px;
+    width: 160px;
+    margin: 20px auto 0 calc(50% - 80px);
+}
+.buttonWhite {
+    font-size: 26px;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+    border: none;
+    width: 160px;
+    padding: 10px;
+}
