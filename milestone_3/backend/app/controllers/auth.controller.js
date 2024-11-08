@@ -146,8 +146,6 @@ exports.logout = async (req, res) => {
 };
 
 exports.update = (req, res) => {
-  console.log("ENTER request body:", req.body);
-
   User.findByIdAndUpdate(
     req.body.id, 
     { $set: { 
@@ -159,7 +157,6 @@ exports.update = (req, res) => {
     { new: true, runValidators: true }
   )
   .then((updatedUser) => {
-    console.log("Updated user:", updatedUser);
     res.send({ message: "User was updated successfully!" });
   })
   .catch((error) => {

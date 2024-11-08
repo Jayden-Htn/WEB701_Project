@@ -90,7 +90,6 @@ const Profile = () => {
     if (validate()) {
       AuthService.update(user.id, firstName, lastName, email, organisation).then(
         (response) => {
-          console.log("RESPONSE IN UPDATE HANLDER");
           setMessage(response.data.message);
           setSuccessful(true);
 
@@ -102,9 +101,7 @@ const Profile = () => {
           setUser(newUser);
         },
         (error) => {
-          console.log("ERROR IN UPDATE HANLDER");
-          console.log("ERROR:", error);
-          const resMessage = `${error.response.statusText.toString()}: ${error.response.data.message.toString()}`;
+          const resMessage = error.response.data.message.toString();
           // (error.response && error.response.data && error.response.data.message) || error.message ||
           setMessage(resMessage);
           setSuccessful(false);

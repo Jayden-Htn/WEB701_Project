@@ -18,13 +18,10 @@ checkDuplicateEmail = (req, res, next) => {
 };
 
 checkDuplicateEmailUpdate = (req, res, next) => {
-  console.log("Check email");
-
   // Try find existing account with email
   User.findOne({
     email: req.body.email
   }).then((user) => {
-    console.log("User:", user, "User id:", user.id, "Req id:", req.body.id);
     if (user && user.id != req.body.id) {
       console.log("Check fail");
       res.status(400).send({ message: "Failed! Email is already in use!" });

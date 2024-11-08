@@ -97,3 +97,114 @@ footer-section p {
 .footer-link-override {
   margin: 5px 0;
 }
+
+
+/* Chatbot */
+#chat-circle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #18114C;
+  width: 80px;
+  height: 80px;  
+  border-radius: 50%;
+  color: white;
+  padding: 28px;
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.chat-box {
+  background: #efefef;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;  
+  width: 350px;
+  max-width: 85vw;
+  max-height: 100vh;
+  border-radius: 10px;  
+  box-shadow: 0px 5px 15px 5px #ccc;
+}
+.chat-box-header {
+  background: #18114C;
+  height: 70px;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 17px;
+  border-radius: 10px 10px 0 0;  
+}
+.chat-box-toggle {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: none;
+  color: white;
+  border: none;
+  font-size: 38px;
+}
+#chat-input {
+  background: #f4f7f9;
+  width: 100%; 
+  position: relative;
+  height: 47px;  
+  padding-top: 10px;
+  padding-right: 50px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  border: none;
+  resize: none;
+  outline: none;
+  border: 1px solid #ccc;
+  color: black;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;  
+}
+.chat-input > form {
+  margin-bottom: 0;
+}
+.chat-submit {  
+  position: absolute;
+  bottom: 3px;
+  right: 10px;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  border-radius: 50%;
+  color: #18114C;
+  font-size: 24px;
+}
+.chat-logs {
+  padding: 10px 0; /* Padding around all messages */
+  height: 370px;
+  overflow-y: scroll;
+}
+.cm-msg-text {
+  background: white;
+  padding: 10px 15px 10px 15px;  
+  color: #666;
+  max-width: 85%; /* Max message width */
+  float: left;
+  margin-left: 10px; 
+  position: relative;
+  margin-bottom: 10px; /* Gap between messages */
+  border-radius: 30px;
+}
+.chat-msg {
+  clear: both;    
+}
+.chat-msg.user > .cm-msg-text {  
+  float: right;
+  margin-right: 10px;
+  background: #18114C;
+  color: white;
+}
+
+.icon {
+  position: relative;
+  font-size: 40px;
+  top: -8px;
+  left: -8px;
+}
