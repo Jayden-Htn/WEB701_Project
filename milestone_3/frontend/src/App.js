@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -21,6 +21,11 @@ const App = () => {
   const [showUserBoard, setShowUserBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const chatLogsRef = useRef(null);
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
@@ -40,8 +45,46 @@ const App = () => {
     AuthService.logout();
   };
 
+  // For chatbot
+  useEffect(() => {
+    // Scroll to the bottom of the chat logs when a new message is added
+    if (chatLogsRef.current) {
+      chatLogsRef.current.scrollTop = chatLogsRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const generateMessage = (msg, type) => {
+    const newMessage = {
+      id: messages.length + 1,
+      text: msg,
+      type,
+    };
+    setMessages([...messages, newMessage]);
+  };
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (input.trim() === "") return;
+    generateMessage(input, "self");
+    setInput("");
+
+    // Simulate response
+    setTimeout(() => {
+      generateMessage("Hello! How can I assist you today?", "user");
+    }, 1000);
+  };
+
+  const handleButtonResponse = (name) => {
+    generateMessage(name, "self");
+  };
+
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
   return (
     <div>
+      {/* Nav bar section */}
       <nav className="navbar navbar-expand navbar-dark">
         <Link to={"/"} className="logo">
           <img src={"./logo.png"} className="logo"></img>
@@ -55,19 +98,16 @@ const App = () => {
               Home
             </Link>
           </li>
-
           <li className="nav-item">
             <Link to={"/about"} className="nav-link">
               About
             </Link>
           </li>
-
           <li className="nav-item">
             <Link to={"/contact"} className="nav-link">
               Contact
             </Link>
           </li>
-
           {showStaffBoard && (
             <li className="nav-item">
               <Link to={"/staff"} className="nav-link">
@@ -75,7 +115,6 @@ const App = () => {
               </Link>
             </li>
           )}
-
           {showAdminBoard && (
             <li className="nav-item">
               <Link to={"/admin"} className="nav-link">
@@ -83,7 +122,6 @@ const App = () => {
               </Link>
             </li>
           )}
-
           {showUserBoard && (
             <li className="nav-item">
               <Link to={"/user"} className="nav-link">
@@ -92,7 +130,6 @@ const App = () => {
             </li>
           )}
         </div>
-
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
@@ -113,7 +150,6 @@ const App = () => {
                 Login
               </Link>
             </li>
-
             <li className="nav-item">
               <Link to={"/register"} className="nav-link">
                 Register
@@ -123,6 +159,7 @@ const App = () => {
         )}
       </nav>
 
+      {/* Main body section */}
       <div className="container">
         <Routes>
           <Route path="/" element={<Home/>} />
@@ -138,6 +175,43 @@ const App = () => {
         </Routes>
       </div>
 
+      {/* Chatbot overlay */}
+      <div className="chat-container">
+        <button id="chat-circle" onClick={toggleChat}>
+          <ion-icon name="chatbox-ellipses-outline" class="icon">Chat</ion-icon>
+        </button>
+        {isChatOpen && (
+          <div className="chat-box">
+            <div className="chat-box-header">
+              <h3>Re:Tech Chatbot</h3>
+              <button className="chat-box-toggle" onClick={toggleChat}>
+                <ion-icon name="close-outline">Close</ion-icon>
+              </button>
+            </div>
+            <div className="chat-logs" ref={chatLogsRef}>
+              {messages.map((msg) => (
+                <div key={msg.id} className={`chat-msg ${msg.type}`}>
+                  <div className="cm-msg-text">{msg.text}</div>
+                </div>
+              ))}
+            </div>
+            <form className="form-group" onSubmit={handleSendMessage}>
+              <input
+                id="chat-input"
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type a message..."
+              />
+              <button className="chat-submit" type="submit">
+                <ion-icon name="send-outline">Send</ion-icon>
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+
+      {/* Footer section */}
       <footer className="footer">
         <footer-section>
           <h3>Address</h3>
@@ -155,19 +229,16 @@ const App = () => {
                 Home
               </Link>
             </li>
-
             <li className="nav-item">
               <Link to={"/about"} className="footer-link">
                 About
               </Link>
             </li>
-
             <li className="nav-item">
               <Link to={"/contact"} className="footer-link">
                 Contact
               </Link>
             </li>
-
             {showStaffBoard && (
               <li className="nav-item">
                 <Link to={"/staff"} className="footer-link">
@@ -175,7 +246,6 @@ const App = () => {
                 </Link>
               </li>
             )}
-
             {showAdminBoard && (
               <li className="nav-item">
                 <Link to={"/admin"} className="footer-link">
@@ -183,7 +253,6 @@ const App = () => {
                 </Link>
               </li>
             )}
-
             {showUserBoard && (
               <li className="nav-item">
                 <Link to={"/user"} className="footer-link">
@@ -192,7 +261,6 @@ const App = () => {
               </li>
             )}
           </div>
-
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
