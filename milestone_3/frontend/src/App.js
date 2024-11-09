@@ -66,15 +66,30 @@ const App = () => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (input.trim() === "") return;
+<<<<<<< HEAD
     generateMessage(input, "user");
     setInput("");
 
     // Generate LLM response
     
+=======
+    generateMessage(input, "self");
+    setInput("");
+
+    // Simulate response
+    setTimeout(() => {
+      generateMessage("Hello! How can I assist you today?", "user");
+    }, 1000);
+  };
+
+  const handleButtonResponse = (name) => {
+    generateMessage(name, "self");
+>>>>>>> 280a4fb223436a0140eec56de77b823a527a8396
   };
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
+<<<<<<< HEAD
 
     // Send initial message
     if (messages.length == 0) {
@@ -82,6 +97,8 @@ const App = () => {
     }
     // Start chatbot model
     ChatService.startModel();
+=======
+>>>>>>> 280a4fb223436a0140eec56de77b823a527a8396
   };
 
   return (
@@ -178,7 +195,10 @@ const App = () => {
       </div>
 
       {/* Chatbot overlay */}
+<<<<<<< HEAD
       {/* Based on https://codepen.io/aftabzaman/pen/VzGMKL */}
+=======
+>>>>>>> 280a4fb223436a0140eec56de77b823a527a8396
       <div className="chat-container">
         <button id="chat-circle" onClick={toggleChat}>
           <ion-icon name="chatbox-ellipses-outline" class="icon">Chat</ion-icon>
