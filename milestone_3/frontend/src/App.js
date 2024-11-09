@@ -63,14 +63,23 @@ const App = () => {
     setMessages([...messages, newMessage]);
   };
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
+    // User message
     e.preventDefault();
     if (input.trim() === "") return;
     generateMessage(input, "user");
     setInput("");
 
     // Generate LLM response
-
+    await ChatService.getResponse(input)
+    .then((res) => {
+      console.log(res);
+      console.log("Data.message:", res.data.message);
+      generateMessage(res.data.message.message.content, "bot");
+    }).catch((err) => {
+      console.log("Error:", err);
+      generateMessage("Error occurred", "bot");
+    })
   };
 
   const toggleChat = () => {
@@ -79,9 +88,9 @@ const App = () => {
     // Send initial message
     if (messages.length == 0) {
       generateMessage("Hi! I'm chip, your digital assistant at Re:Tech. How may I assist you today?", "bot");
+      ChatService.startModel(); // Start chatbot model
     }
-    // Start chatbot model
-    ChatService.startModel();
+    
   };
 
   return (
