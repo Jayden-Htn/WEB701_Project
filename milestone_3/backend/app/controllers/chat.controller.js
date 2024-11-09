@@ -60,6 +60,8 @@ exports.generateResponse = async (req, res) => {
 
   // Generate response
   try {
+    console.log("Generating response");
+
     const response = await client.chat({
       model: 'gemma2',
       messages: conversationHistory

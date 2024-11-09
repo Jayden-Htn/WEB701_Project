@@ -25,6 +25,8 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [loadingModel, setLoadingModel] = useState(false);
+  const [modelSet, setModelSet] = useState(false);
   const chatLogsRef = useRef(null);
 
   useEffect(() => {
@@ -35,6 +37,17 @@ const App = () => {
       setShowStaffBoard(user.role.includes("role_staff"));
       setShowAdminBoard(user.role.includes("role_admin"));
       setShowUserBoard(user.role.includes("role_beneficiary"));
+    }
+
+    // Start chatbot model
+    if (!modelSet && !loadingModel) {
+      setLoadingModel(true);
+      ChatService.startModel().then((res) => {
+        setModelSet(true);
+      }).catch((err) => {
+        setModelSet(false);
+      })
+      setLoadingModel(false);
     }
   }, []);
 
@@ -55,26 +68,30 @@ const App = () => {
   }, [messages]);
 
   const generateMessage = (msg, type) => {
+    let messageArray = messages;
     const newMessage = {
       id: messages.length + 1,
       text: msg,
       type,
     };
-    setMessages([...messages, newMessage]);
+    messageArray.push(newMessage);
+    console.log("Messages before:", messages);
+    setMessages([newMessage]);
+    console.log("Messages after:", messages);
   };
 
   const handleSendMessage = async (e) => {
     // User message
     e.preventDefault();
     if (input.trim() === "") return;
+    console.log("Generate for user");
     generateMessage(input, "user");
     setInput("");
 
     // Generate LLM response
     await ChatService.getResponse(input)
     .then((res) => {
-      console.log(res);
-      console.log("Data.message:", res.data.message);
+      console.log("Generate for response");
       generateMessage(res.data.message.message.content, "bot");
     }).catch((err) => {
       console.log("Error:", err);
@@ -87,10 +104,10 @@ const App = () => {
 
     // Send initial message
     if (messages.length == 0) {
+      console.log("Generate for initial");
       generateMessage("Hi! I'm chip, your digital assistant at Re:Tech. How may I assist you today?", "bot");
-      ChatService.startModel(); // Start chatbot model
+      console.log("Initial after:", messages);
     }
-    
   };
 
   return (
