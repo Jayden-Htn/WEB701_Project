@@ -19,11 +19,16 @@ const getAdminBoard = () => {
   return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
+const getDonatorBoard = () => {
+  return axios.get(API_URL + "donator", { headers: authHeader() });
+};
+
 const UserService = {
   getPublicContent,
   getUserBoard,
   getStaffBoard,
   getAdminBoard,
+  getDonatorBoard
 };
 
 export default UserService;

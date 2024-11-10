@@ -23,4 +23,9 @@ module.exports = function(app) {
     "/api/page/admin",
     [authJwt.verifyToken, authJwt.isAdmin], controller.adminBoard
   );
+
+  app.get(
+    "/api/page/donator",
+    [authJwt.verifyToken, authJwt.isDonator], controller.donatorBoard
+  );
 };

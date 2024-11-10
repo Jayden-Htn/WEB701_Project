@@ -15,11 +15,13 @@ import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import BoardStaff from "./components/BoardStaff";
 import BoardAdmin from "./components/BoardAdmin";
+import BoardDonator from "./components/BoardDonator";
 
 const App = () => {
   const [showStaffBoard, setShowStaffBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [showUserBoard, setShowUserBoard] = useState(false);
+  const [showDonatorBoard, setShowDonatorBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
   const [messages, setMessages] = useState([]);
@@ -37,6 +39,7 @@ const App = () => {
       setShowStaffBoard(user.role.includes("role_staff"));
       setShowAdminBoard(user.role.includes("role_admin"));
       setShowUserBoard(user.role.includes("role_beneficiary"));
+      setShowDonatorBoard(user.role.includes("role_donator"));
     }
 
     // Start chatbot model
@@ -55,6 +58,7 @@ const App = () => {
     setShowStaffBoard(false);
     setShowAdminBoard(false);
     setShowUserBoard(false);
+    setShowDonatorBoard(false);
     setCurrentUser(undefined);
     AuthService.logout();
   };
@@ -157,6 +161,13 @@ const App = () => {
               </Link>
             </li>
           )}
+          {showDonatorBoard && (
+            <li className="nav-item">
+              <Link to={"/donator"} className="nav-link">
+                Donate
+              </Link>
+            </li>
+          )}
         </div>
         {currentUser ? (
           <div className="navbar-nav ml-auto">
@@ -200,6 +211,7 @@ const App = () => {
           <Route path="/user" element={<BoardUser/>} />
           <Route path="/staff" element={<BoardStaff/>} />
           <Route path="/admin" element={<BoardAdmin/>} />
+          <Route path="/donator" element={<BoardDonator/>} />
         </Routes>
       </div>
 

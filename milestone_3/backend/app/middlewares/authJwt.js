@@ -72,6 +72,30 @@ isStaff = (req, res, next) => {
   });
 };
 
+isDonator = (req, res, next) => {
+  // Find user in database
+  User.findById(req.userId).then((user) => {
+    // Check each role to see if it is staff
+    Role.find({_id: { $in: user.role }}).then((role) => {
+        for (let i = 0; i < role.length; i++) {
+          if (role[i].name === "donator") {
+            next();
+            return;
+          }
+        }
+        res.status(403).send({ message: "Require Donator Role!" });
+        return;
+      }
+    ).catch((err) => {
+      res.status(500).send({ message: err });
+      return;
+    });
+  }).catch((err) => {
+    res.status(500).send({ message: err });
+    return;
+  });
+};
+
 const authJwt = {
   verifyToken,
   isAdmin,

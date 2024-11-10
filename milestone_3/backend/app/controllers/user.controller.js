@@ -21,3 +21,7 @@ exports.adminBoard = (req, res) => {
 exports.staffBoard = (req, res) => {
   res.status(200).send("Staff Content.");
 };
+
+exports.donatorBoard = (req, res) => {
+  res.status(200).send("Donator Content.");
+};
