@@ -65,7 +65,7 @@ const Login = () => {
     <div className={styles.bodySection}>
       <div className="card card-container">
         {/* Create form with submit function */}
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} className={styles.loginForm}>
           {/* Email input */}
           <div className="form-group">
             <label htmlFor="email">Email</label>

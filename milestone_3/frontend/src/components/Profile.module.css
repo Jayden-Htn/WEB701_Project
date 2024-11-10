@@ -46,11 +46,13 @@
 .mainBody {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     width: 100%;
     gap: 80px;
 }
-form {
+.updateDetailsForm {
     flex: 1 0 400px;
+    max-width: 50%;
 }
 .purchaseHistory {
     flex: 1 0 400px;

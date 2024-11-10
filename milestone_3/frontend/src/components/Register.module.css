@@ -14,3 +14,9 @@ select {
     height: 40px;
     border-radius: 6px;
 }
+
+.registerForm {
+    flex: 1 0 400px;
+    margin: 0;
+    max-width: 600px;
+}

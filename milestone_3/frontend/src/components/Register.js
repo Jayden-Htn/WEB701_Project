@@ -95,7 +95,7 @@ const Register = () => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <form onSubmit={handleRegister}>
+        <form onSubmit={handleRegister} className={styles.registerForm}>
           {!successful && (
             <div>
               <div className="form-group">

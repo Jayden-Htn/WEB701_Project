@@ -8,6 +8,8 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState("");
+  const [showBeneficiary, setShowBeneficiary] = useState(false);
+  const [showDonator, setShowDonator] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -33,6 +35,10 @@ const Profile = () => {
       setLastName(user.lastName);
       setEmail(user.email);
       setOrganisation(user.organisation);
+
+      if (user.role === "role_beneficiary") {
+        setShowBeneficiary(true);
+      }
       
       const expiryDate = new Date(user.tokenExpiry);
       expiryDate.getTime()
@@ -121,7 +127,8 @@ const Profile = () => {
       <header className="jumbotron">
         <h3>Welcome {firstName} {lastName}</h3>
       </header>
-      <div className={styles.tokens}>
+      {showBeneficiary && (
+        <div className={styles.tokens}>
         <div className={styles.tokensLeft}>
           <h3>My Balance:</h3>
           <h4>{user.tokens} Tokens</h4>
@@ -131,10 +138,11 @@ const Profile = () => {
           <button className={styles.buttonWhite} onClick={() => navigate("/user")}>SHOP</button>
         </div>
       </div>
+      )}
 
       <div className={styles.mainBody}>
         {/* Account details update form */}
-        <form onSubmit={handleUpdate}>
+        <form onSubmit={handleUpdate} className={styles.updateDetailsForm}>
           <h3>Account Details</h3>
           <div>
             <div className="form-group">
@@ -201,7 +209,8 @@ const Profile = () => {
         </form>
 
         {/* Map purchases to list */}
-        <div className={styles.purchaseHistory}>
+        {showBeneficiary && (
+          <div className={styles.purchaseHistory}>
           <p><strong>Purchases:</strong></p>
           <ul>
             {
@@ -215,6 +224,7 @@ const Profile = () => {
             }
           </ul>
         </div>
+        )}
       </div>
     </div>
   );
