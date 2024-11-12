@@ -73,36 +73,33 @@ const App = () => {
 
   const generateMessage = (msg, type) => {
     let messageArray = messages;
-    console.log("Messages useState:", messages);
     const newMessage = {
       id: messages.length + 1,
       text: msg,
-      type,
+      type: type,
     };
     messageArray.push(newMessage);
-    console.log("Messages before:", messages);
-    setMessages([newMessage]);
-    console.log("Messages after:", messages);
-    console.log("----------");
+    setMessages([...messageArray]);
   };
 
   const handleSendMessage = async (e) => {
     // User message
     e.preventDefault();
     if (input.trim() === "") return;
-    console.log("Generate for user");
+    console.log("Generating chat response");
     generateMessage(input, "user");
     setInput("");
 
     // Generate LLM response
     await ChatService.getResponse(input)
     .then((res) => {
-      console.log("Generating chat response");
+      console.log("New chat:", res.data);
       generateMessage(res.data, "bot");
     }).catch((err) => {
       console.log("Error:", err);
       generateMessage("Error occurred", "bot");
     })
+    console.log("Outside messages:", messages);
   };
 
   const toggleChat = () => {
@@ -110,9 +107,7 @@ const App = () => {
 
     // Send initial message
     if (messages.length == 0) {
-      console.log("Generate for initial");
       generateMessage("Hi! I'm chip, your digital assistant at Re:Tech. How may I assist you today?", "bot");
-      console.log("Initial after:", messages);
     }
   };
 

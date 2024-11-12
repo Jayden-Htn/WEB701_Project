@@ -41,6 +41,8 @@ exports.startModel = async (req, res) => {
 }
 
 exports.generateResponse = async (req, res) => {
+  console.log("Generating chat response");
+
   // Handle input prompt
   const prompt = req.body.message; 
   // req.query.message for API test with query param
