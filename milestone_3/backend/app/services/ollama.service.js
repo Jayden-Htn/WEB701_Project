@@ -1,4 +1,4 @@
-const generate = (prompt) => {
+const generate = (prompt, context) => {
   return new Promise(function (resolve, reject) {
 
   // Make data
@@ -6,6 +6,7 @@ const generate = (prompt) => {
     model: "gemma2",
     prompt: prompt,
     stream: false,
+    context: context
   };
   
   // POST request options
@@ -30,7 +31,8 @@ const generate = (prompt) => {
     })
     .then(data => {
       // Handle the data returned from the server
-      console.log('Post request response:', data);
+      data.response = data.response.replace("\n", ""); // Remove newlines
+      console.log('Fetch chat response:', data.response);
       resolve(data);
     })
     .catch(error => {

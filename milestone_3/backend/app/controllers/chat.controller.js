@@ -23,10 +23,10 @@ const setupPrompt = `CONTEXT INFORMATION: You are Chip, chatbot for Re:Tech, a N
   Stats: 357 devices donated to our community, 287 people benefited through Re:Tech, 3 years of supporting Nelson/Tasman`
 
 exports.startModel = async (req, res) => {
-  console.log("Starting setup");
+  console.log("Starting setup (pre-prompting)");
 
   try {
-    generate(setupPrompt)
+    generate(setupPrompt, context)
       .then((response) => {
         context = response.context;
         return res.status(200).json(response.response);
@@ -51,9 +51,8 @@ exports.generateResponse = async (req, res) => {
 
   // Generate response
   try {
-    generate(prompt)
+    generate(prompt, context)
       .then((response) => {
-        context = response.context;
         return res.status(200).json(response.response);
       }).catch((err) => {
         throw new Error(err);

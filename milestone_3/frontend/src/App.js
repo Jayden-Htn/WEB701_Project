@@ -73,6 +73,7 @@ const App = () => {
 
   const generateMessage = (msg, type) => {
     let messageArray = messages;
+    console.log("Messages useState:", messages);
     const newMessage = {
       id: messages.length + 1,
       text: msg,
@@ -82,6 +83,7 @@ const App = () => {
     console.log("Messages before:", messages);
     setMessages([newMessage]);
     console.log("Messages after:", messages);
+    console.log("----------");
   };
 
   const handleSendMessage = async (e) => {
@@ -96,8 +98,7 @@ const App = () => {
     await ChatService.getResponse(input)
     .then((res) => {
       console.log("Generating chat response");
-      console.log("Res:", res);
-      generateMessage(res.data.message.response, "bot");
+      generateMessage(res.data, "bot");
     }).catch((err) => {
       console.log("Error:", err);
       generateMessage("Error occurred", "bot");
