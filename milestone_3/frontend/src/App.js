@@ -27,8 +27,8 @@ const App = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [loadingModel, setLoadingModel] = useState(false);
-  const [modelSet, setModelSet] = useState(false);
+  // const [loadingModel, setLoadingModel] = useState(false);
+  // const [modelSet, setModelSet] = useState(false);
   const chatLogsRef = useRef(null);
 
   useEffect(() => {
@@ -42,16 +42,16 @@ const App = () => {
       setShowDonatorBoard(user.role.includes("role_donator"));
     }
 
-    // Start chatbot model
-    if (!modelSet && !loadingModel) {
-      setLoadingModel(true);
-      ChatService.startModel().then((res) => {
-        setModelSet(true);
-      }).catch((err) => {
-        setModelSet(false);
-      })
-      setLoadingModel(false);
-    }
+    // Start chatbot model, removed as using preset context
+    // if (!modelSet && !loadingModel) {
+    //   setLoadingModel(true);
+    //   ChatService.startModel().then((res) => {
+    //     setModelSet(true);
+    //   }).catch((err) => {
+    //     setModelSet(false);
+    //   })
+    //   setLoadingModel(false);
+    // }
   }, []);
 
   const logOut = () => {
