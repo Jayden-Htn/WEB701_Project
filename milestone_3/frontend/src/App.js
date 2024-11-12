@@ -95,8 +95,9 @@ const App = () => {
     // Generate LLM response
     await ChatService.getResponse(input)
     .then((res) => {
-      console.log("Generate for response");
-      generateMessage(res.data.message.message.content, "bot");
+      console.log("Generating chat response");
+      console.log("Res:", res);
+      generateMessage(res.data.message.response, "bot");
     }).catch((err) => {
       console.log("Error:", err);
       generateMessage("Error occurred", "bot");

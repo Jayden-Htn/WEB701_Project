@@ -8,9 +8,6 @@ var bcrypt = require("bcryptjs");
 
 exports.register = (req, res) => {
   // Construct new user object from request
-
-  console.log("Req.body:", req.body);
-
   const user = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,

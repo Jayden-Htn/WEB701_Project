@@ -14,7 +14,12 @@ This repository includes the web app and report document.
 To install all dependencies run:
 - `npm run post-install`
 
-This will install the dependencies for all milestones and required subfolders.
+This will install almost all dependencies for all milestones and required subfolders.
+
+For milestone 3:
+- Install ollama: https://ollama.com/download
+- In the command prompt run: ollama pull gemma2
+- In the command prompt run: ollama serve
 
 ## Milestones
 
