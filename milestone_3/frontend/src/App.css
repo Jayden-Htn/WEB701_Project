@@ -175,7 +175,7 @@ footer-section p {
   font-size: 24px;
 }
 .chat-logs {
-  padding: 10px 0; /* Padding around all messages */
+  margin: 10px 0; /* Space around all messages */
   height: 370px;
   overflow-y: scroll;
 }
