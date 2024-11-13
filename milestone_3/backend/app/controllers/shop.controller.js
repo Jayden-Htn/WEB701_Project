@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.user;
 const Item = db.item;
+const Category = db.category;
 
 exports.purchaseItem = async (req, res) => {
   try {
@@ -45,5 +46,48 @@ exports.purchaseItem = async (req, res) => {
   } catch (err) {
     console.log("Error:", err);
     res.status(500).send({ message: err.message });
+  }
+};
+
+exports.addItem = async (req, res) => {
+  console.log("Add item with:", req.body);
+  try {
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      quantityAvailable: req.body.quantity,
+    });
+  
+    // Save new user to database
+    item.save().then((item) => {
+      // Find and map category
+      Category.find({name: { $in: req.body.category }}).then((category) => {
+          item.category = category.map(category => category._id);
+          item.save().then(() => {
+            res.send({ message: "Item was registered successfully! Thank you!" });
+          }).catch(err => {
+            if (err) {
+              console.log("Error:", err);
+              res.status(500).send({ message: err });
+            }
+          });
+      }).catch((err) => {
+          if (err) {
+            console.log("Error:", err);
+            res.status(500).send({ message: err });
+          }
+        }
+      );
+    }).catch((err) => {
+      if (err) {
+        console.log("Error:", err);
+        res.status(500).send({ message: err });
+      }
+    });
+  }
+  catch {
+    console.log("Error:", err);
+    res.status(500).send({ message: err });
   }
 };

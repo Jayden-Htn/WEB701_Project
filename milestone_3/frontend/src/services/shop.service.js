@@ -15,8 +15,16 @@ const purchaseItem = (id) => {
   });
 };
 
+const addItem = (name, description, price, quantity, category) => {
+  return axios.patch(API_URL + "add", 
+    { name, description, price, quantity, category }, 
+    { headers: authHeader()}
+  )
+};
+
 const ShopService = {
   purchaseItem,
+  addItem
 };
 
 export default ShopService;

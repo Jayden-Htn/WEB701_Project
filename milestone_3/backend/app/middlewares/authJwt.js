@@ -99,6 +99,7 @@ isDonator = (req, res, next) => {
 const authJwt = {
   verifyToken,
   isAdmin,
-  isStaff
+  isStaff,
+  isDonator
 };
 module.exports = authJwt;

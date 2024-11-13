@@ -12,4 +12,6 @@ module.exports = function(app) {
 
   app.patch("/api/shop/purchase", [authJwt.verifyToken], controller.purchaseItem);
   // Add is user authJwt.isUser later
+
+  app.patch("/api/shop/add", [authJwt.verifyToken], controller.addItem);
 };

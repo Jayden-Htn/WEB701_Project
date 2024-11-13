@@ -3,7 +3,6 @@ import ShopService from "../services/shop.service";
 import UserService from "../services/user.service";
 import styles from "./BoardDonator.module.css";
 import { useNavigate } from 'react-router-dom';
-import { isEmail } from "validator";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -11,8 +10,8 @@ const Profile = () => {
 
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
-  const [tokenPrice, setTokenPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [tokenPrice, setTokenPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const [category, setCategory] = useState("");
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
@@ -21,7 +20,8 @@ const Profile = () => {
     itemName: "",
     description: "",
     tokenPrice: "",
-    quantity: ""
+    quantity: "",
+    category: ""
   });
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Profile = () => {
   }, []);
 
   const validate = () => {
-    const newErrors = { itemName: "", description: "", tokenPrice: "", quantity: ""};
+    const newErrors = { itemName: "", description: "", tokenPrice: "", quantity: "", category: ""};
     let isValid = true;
 
     if (!itemName) {
@@ -84,6 +84,11 @@ const Profile = () => {
       isValid = false;
     }
 
+    if (!category) {
+      newErrors.category = "This field is required!";
+      isValid = false;
+    } 
+
     setErrors(newErrors);
     return isValid;
   };
@@ -94,8 +99,7 @@ const Profile = () => {
     setSuccessful(false);
 
     if (validate()) {
-      // UPDATE SERVICE
-      ShopService.update(itemName, description, tokenPrice, quantity, category).then(
+      ShopService.addItem(itemName, description, tokenPrice, quantity, category).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -149,11 +153,11 @@ const Profile = () => {
         <div className="form-group">
           <label htmlFor="tokenPrice">Token Price</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             name="tokenPrice"
             value={tokenPrice}
-            onChange={(e) => setTokenPrice(e.target.value)}
+            onChange={(e) => setTokenPrice(Number.parseInt(e.target.value))}
           />
           {errors.tokenPrice && <div className="alert alert-danger" role="alert">{errors.tokenPrice}</div>}
         </div>
@@ -163,10 +167,10 @@ const Profile = () => {
           <input
             type="text"
             className="form-control"
-            name="quantity"
+            name="number"
             value={quantity}
             placeholder="n/a"
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={(e) => setQuantity(Number.parseInt(e.target.value))}
           />
           {errors.quantity && <div className="alert alert-danger" role="alert">{errors.quantity}</div>}
         </div>
@@ -174,6 +178,7 @@ const Profile = () => {
         <div className="form-group">
             <label htmlFor="category">Item Category</label>
             <select name="category"  value={category} onChange={(e) => setCategory(e.target.value)}>
+              <option disabled></option>
               <option value="phone">Phone</option>
               <option value="computer">Computer</option>
               <option value="tablet">Tablet</option>
