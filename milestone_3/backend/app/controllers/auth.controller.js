@@ -108,7 +108,7 @@ exports.login = (req, res) => {
 
     var purchaseList = [];
     user.purchases.forEach(purchase => {
-      purchaseList.push("" + purchase.name.toLowerCase());
+      purchaseList.push({name: purchase.name, price: purchase.price, description: purchase.description});
     });
     
     // Send user data back to frontend

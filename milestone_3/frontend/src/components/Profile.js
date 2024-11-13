@@ -28,7 +28,7 @@ const Profile = () => {
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
-    console.log("User:", user);
+    // console.log("User:", user);
 
     if (user) {
       setFirstName(user.firstName);
@@ -141,6 +141,7 @@ const Profile = () => {
       )}
 
       <div className={styles.mainBody}>
+
         {/* Account details update form */}
         <form onSubmit={handleUpdate} className={styles.updateDetailsForm}>
           <h3>Account Details</h3>
@@ -211,19 +212,22 @@ const Profile = () => {
         {/* Map purchases to list */}
         {showBeneficiary && (
           <div className={styles.purchaseHistory}>
-          <p><strong>Purchases:</strong></p>
-          <ul>
-            {
-              Array.isArray(user.purchases) ? (
-                user.purchases.map((item, i) => (
-                    <li key={i}>{item}</li>
-                ))
-              ) : (
-                <li>Nothing</li>
-              )
-            }
-          </ul>
-        </div>
+            <h3>Purchase History</h3>
+            <ul className={styles.purchaseList}>
+              {
+                Array.isArray(user.purchases) ? (
+                  user.purchases.map((item, i) => (
+                      <li key={i} className={styles.purchaseItem}>
+                        <p><b>{item.name}</b> - {item.price} tokens </p>
+                        <p>{item.description.length > 70 ? item.description.substring(0, 71)+"..." : item.description}</p>
+                      </li>
+                  ))
+                ) : (
+                  <li>Nothing</li>
+                )
+              }
+            </ul>
+          </div>
         )}
       </div>
     </div>
