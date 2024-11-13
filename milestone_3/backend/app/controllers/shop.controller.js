@@ -13,17 +13,20 @@ exports.purchaseItem = async (req, res) => {
     
     // Check if there is an item to purchase
     if (item.quantityAvailable < 1) {
+      console.log("Error 400: no items available");
       return res.status(400).send({ message: "No items available for purchase." });
     }
     
     // Find user and populate purchases
     const user = await User.findById(req.userId).populate('purchases', '-__v');
     if (!user) {
+      console.log("Error 404: user not found");
       return res.status(404).send({ message: "User not found" });
     }
     
     // Does user have enough tokens
     if (user.tokens < item.price) {
+      console.log("Error 400: not enough tokens");
       return res.status(400).send({ message: "Not enough tokens for purchase." });
     }
     
@@ -38,9 +41,12 @@ exports.purchaseItem = async (req, res) => {
     
     // Get user with new purchase
     const updatedUser = await User.findById(req.userId).populate('purchases', '-__v');
-    
+
     // Build the purchase list
-    const purchaseList = updatedUser.purchases.map(purchase => purchase.name.toLowerCase());
+    var purchaseList = [];
+    updatedUser.purchases.forEach(purchase => {
+      purchaseList.push({name: purchase.name, price: purchase.price, description: purchase.description});
+    });
     
     res.status(200).send({ tokens: user.tokens, purchases: purchaseList });
   } catch (err) {

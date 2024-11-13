@@ -25,6 +25,8 @@ const Profile = () => {
     organisation: ""
   });
 
+  console.log("Purchases:", user.purchases)
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 

@@ -1,0 +1,33 @@
+.container {
+    margin: 40px 5vw;
+}
+
+.shopContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.itemCard {
+    background-color: #f5f5f5;
+    border-radius: 15px;
+    padding: 10px;
+    flex: 1 0 300px;
+    margin: 0;
+}
+
+.button {
+    font-size: 18px;
+    color: white;
+    background-color: #18114c;
+    border-radius: 8px;
+    border: none;
+    padding: 4px 10px;
+    width: 160px;
+    margin: 20px auto 0 calc(50% - 80px);
+}
+.button:disabled {
+    background-color: darkgrey;
+}

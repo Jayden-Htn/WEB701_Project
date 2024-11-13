@@ -6,7 +6,8 @@ const API_URL = "http://localhost:8080/api/shop/";
 
 const purchaseItem = (id) => {
   return axios.patch(API_URL + "purchase", { id: id }, { headers: authHeader()})
-    .then((response) => {
+  .then((response) => {
+    console.log("New data:", response.data);
     // If successful, update user in local storage
     return AuthService.updateCurrentUser(response.data);
   }).catch((err) => {

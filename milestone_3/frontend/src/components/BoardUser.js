@@ -3,16 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import UserService from "../services/user.service";
 import ShopService from "../services/shop.service";
 import AuthService from "../services/auth.service";
+import styles from "./BoardUser.module.css";
 
 const BoardUser = () => {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const [tokens, setTokens] = useState(0);
 
   useEffect(() => {
     UserService.getUserBoard().then(
       (response) => {
         setContent(response.data);
+        
+        // Get tokens to display are disabled too-expensive item buttons
+        const user = AuthService.getCurrentUser();
+        if (user) {
+          setTokens(user.tokens);
+        }
       },
       (error) => {
         const _content =
@@ -42,33 +50,32 @@ const BoardUser = () => {
   };
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>Store</h3>
-        <div id="container">
-          {
-            Array.isArray(content) ? (
-              content.map((data, i) => (
-                <div key={i} className="item-card" style={{margin: "40px"}}>
-                  <h5>{data.name}</h5>
-                  <p>{data.description}</p>
-                  <p>Price: {data.price}</p>
-                  <p>Quantity: {data.quantityAvailable} {/*data.category*/}</p>
-                  
-                  <button className="btn-primary btn-block" disabled={loading} onClick={() => purchase(data._id)}>
-                    {loading && (
-                      <span className="spinner-border spinner-border-sm"></span>
-                    )}
-                    <span>Buy</span>
-                  </button>
-                </div>
-              ))
-            ) : (
-              <li>Nothing</li>
-            )
-          }
-          </div>
-      </header>
+    <div className={styles.container}>
+      <h3>Store</h3>
+      <p>Tokens: {tokens}</p>
+      <div className={styles.shopContainer}>
+        {
+          Array.isArray(content) ? (
+            content.map((data, i) => (
+              <div key={i} className={styles.itemCard}>
+                <h5>{data.name}</h5>
+                <p>{data.description}</p>
+                <p>Price: {data.price}</p>
+                <p>Quantity: {data.quantityAvailable} {/*data.category*/}</p>
+                
+                <button className={styles.button} disabled={loading || data.price > tokens} onClick={() => purchase(data._id)}>
+                  {loading && (
+                    <span className="spinner-border spinner-border-sm"></span>
+                  )}
+                  <span>Buy</span>
+                </button>
+              </div>
+            ))
+          ) : (
+            <li>Nothing</li>
+          )
+        }
+      </div>
     </div>
   );
 };
