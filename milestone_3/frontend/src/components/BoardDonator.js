@@ -74,7 +74,7 @@ const Profile = () => {
     }
 
     if (!quantity) {
-      newErrors.organisation = "This field is required!";
+      newErrors.quantity = "This field is required!";
       isValid = false;
     } else if (!Number.isInteger(quantity)) {
       newErrors.quantity = "This is not a valid quantity.";
