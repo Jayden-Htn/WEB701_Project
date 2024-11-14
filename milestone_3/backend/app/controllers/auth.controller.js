@@ -146,7 +146,7 @@ exports.update = (req, res) => {
   User.findByIdAndUpdate(
     req.body.id, 
     { $set: { 
-      firstname: req.body.firstName,
+      firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       organisation: req.body.organisation

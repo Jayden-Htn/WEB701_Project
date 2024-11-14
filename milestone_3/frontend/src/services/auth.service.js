@@ -50,7 +50,7 @@ const updateCurrentUser = (data) => {
   }
 };
 
-const update = (id, firstName, lastName, email, organisation) => {
+const update = (id, firstName, lastName, email, organisation) => { 
   return axios.post(API_URL + "update", {
     id,
     firstName,
@@ -58,7 +58,29 @@ const update = (id, firstName, lastName, email, organisation) => {
     email,
     organisation
   }, { headers: authHeader() }
-);
+  ).then((response) => {
+    updateLocalUserDetails(firstName, lastName, email, organisation);
+    return response;
+  }).catch((error) => {
+    return Promise.reject(error);
+  });
+};
+
+
+const updateLocalUserDetails = (firstName, lastName, email, organisation) => {
+  // Get current user data
+  let currentUser = getCurrentUser();
+  if (currentUser) {
+    currentUser.firstName = firstName;  
+    currentUser.lastName = lastName;  
+    currentUser.email = email;  
+    currentUser.organisation = organisation;  
+    localStorage.setItem("user", JSON.stringify(currentUser));
+    return currentUser;
+  } else {
+    console.log("Error: User not found in localStorage");
+    return null;
+  }
 };
 
 
@@ -68,7 +90,8 @@ const AuthService = {
   logout,
   getCurrentUser,
   updateCurrentUser,
-  update
+  update,
+  updateLocalUserDetails
 };
 
 export default AuthService;

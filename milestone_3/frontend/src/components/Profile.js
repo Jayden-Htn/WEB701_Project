@@ -25,8 +25,6 @@ const Profile = () => {
     organisation: ""
   });
 
-  console.log("Purchases:", user.purchases)
-
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
@@ -109,6 +107,7 @@ const Profile = () => {
           setUser(newUser);
         },
         (error) => {
+          console.log("Error:", error);
           const resMessage = error.response.data.message.toString();
           // (error.response && error.response.data && error.response.data.message) || error.message ||
           setMessage(resMessage);
