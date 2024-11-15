@@ -63,7 +63,8 @@ const BoardUser = () => {
                 <p>Price: {data.price}</p>
                 <p>Quantity: {data.quantityAvailable} {/*data.category*/}</p>
                 
-                <button className={styles.button} disabled={loading || data.price > tokens} onClick={() => purchase(data._id)}>
+                <button className={styles.button} disabled={loading || data.price > tokens || data.quantityAvailable < 1} 
+                  onClick={() => purchase(data._id)}>
                   {loading && (
                     <span className="spinner-border spinner-border-sm"></span>
                   )}
